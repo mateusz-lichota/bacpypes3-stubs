@@ -1,0 +1,12 @@
+[project]
+name = "bacpypes3-stubs"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "bacpypes3>=0.0.99",
+]

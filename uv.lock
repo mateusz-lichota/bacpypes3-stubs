@@ -1,0 +1,26 @@
+version = 1
+requires-python = ">=3.12"
+
+[[package]]
+name = "bacpypes3"
+version = "0.0.99"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/eb/c5/00e25087cae10532e6735f9f4768a20df987666a34c1bf2e88b82b523874/bacpypes3-0.0.99.tar.gz", hash = "sha256:0e8873c40b47cb7656b338cd40979cf755bb2a9203f3020f7481df530750d35a", size = 262184 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/37/80/f4fcbad10aac385192b0c53af4635e913d3f86f977fa2f0a37efa2e7c388/bacpypes3-0.0.99-py3-none-any.whl", hash = "sha256:10c7b59d71616ba325ba2fdc9ab1cb13f1bff79cc5e983077983376413435015", size = 307420 },
+]
+
+[[package]]
+name = "bacpypes3-stubs"
+version = "0.1.0"
+source = { virtual = "." }
+
+[package.dev-dependencies]
+dev = [
+    { name = "bacpypes3" },
+]
+
+[package.metadata]
+
+[package.metadata.requires-dev]
+dev = [{ name = "bacpypes3", specifier = ">=0.0.99" }]
