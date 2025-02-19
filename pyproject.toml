@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 dependencies = []
 
 [dependency-groups]
-dev = [
-    "bacpypes3>=0.0.99",
-]
+dev = ["bacpypes3>=0.0.99", "httpx>=0.28.1"]
+
+[project.urls]
+"Homepage" = "https://github.com/mateusz-lichota/bacpypes3-stubs"
