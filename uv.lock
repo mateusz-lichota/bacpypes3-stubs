@@ -40,6 +40,7 @@ dev = [
 [package.metadata.requires-dev]
 dev = [
     { name = "bacpypes3", specifier = ">=0.0.99" },
+    { name = "bacpypes3-stubs", virtual = "." },
     { name = "httpx", specifier = ">=0.28.1" },
 ]
 
