@@ -17,36 +17,51 @@ _debug = ...
 _log = ...
 app: Optional[Application] = ...
 bvll_ase: Optional[BVLLServiceElement] = ...
-@bacpypes_debugging
+
 class CmdShell(Cmd):
     """
     Basic command shell when executing the module.
     """
+
     _debug: Callable[..., None]
-    async def do_read(self, address: Address, object_identifier: str, property_identifier: str) -> None:
+    async def do_read(
+        self, address: Address, object_identifier: str, property_identifier: str
+    ) -> None:
         """
         Send a Read Property Request and wait for the response.
 
         usage: read address objid prop[indx]
         """
         ...
-    
-    async def do_write(self, address: Address, object_identifier: str, property_identifier: str, value: str, priority: Optional[int] = ...) -> None:
+
+    async def do_write(
+        self,
+        address: Address,
+        object_identifier: str,
+        property_identifier: str,
+        value: str,
+        priority: Optional[int] = ...,
+    ) -> None:
         """
         Send a Write Property Request and wait for the acknowledgement.
 
         usage: write address objid prop[indx] value [ priority ]
         """
         ...
-    
-    async def do_whois(self, address: Optional[Address] = ..., low_limit: Optional[int] = ..., high_limit: Optional[int] = ...) -> None:
+
+    async def do_whois(
+        self,
+        address: Optional[Address] = ...,
+        low_limit: Optional[int] = ...,
+        high_limit: Optional[int] = ...,
+    ) -> None:
         """
         Send a Who-Is request and wait for the response(s).
 
         usage: whois [ address [ low_limit high_limit ] ]
         """
         ...
-    
+
     async def do_iam(self, address: Optional[Address] = ...) -> None:
         """
         Send an I-Am request, no response.
@@ -54,7 +69,7 @@ class CmdShell(Cmd):
         usage: iam [ address ]
         """
         ...
-    
+
     async def do_whohas(self, *args: str) -> None:
         """
         Send a Who-Has request, an objid or objname (or both) is required.
@@ -62,15 +77,20 @@ class CmdShell(Cmd):
         usage: whohas [ low_limit high_limit ] [ objid ] [ objname ] [ address ]
         """
         ...
-    
-    async def do_ihave(self, object_identifier: ObjectIdentifier, object_name: CharacterString, address: Optional[Address] = ...) -> None:
+
+    async def do_ihave(
+        self,
+        object_identifier: ObjectIdentifier,
+        object_name: CharacterString,
+        address: Optional[Address] = ...,
+    ) -> None:
         """
         Send an I-Have request.
 
         usage: ihave objid objname [ address ]
         """
         ...
-    
+
     async def do_rpm(self, address: Address, *args: str) -> None:
         """
         Read Property Multiple
@@ -78,15 +98,17 @@ class CmdShell(Cmd):
         usage: rpm address ( objid ( prop[indx] )... )...
         """
         ...
-    
-    async def do_wirtn(self, address: Optional[Address] = ..., network: Optional[int] = ...) -> None:
+
+    async def do_wirtn(
+        self, address: Optional[Address] = ..., network: Optional[int] = ...
+    ) -> None:
         """
         Who Is Router To Network
 
         usage: wirtn [ address [ network ] ]
         """
         ...
-    
+
     async def do_irt(self, address: Optional[Address] = ...) -> None:
         """
         Initialize Routing Table
@@ -94,7 +116,7 @@ class CmdShell(Cmd):
         usage: irt [ address ]
         """
         ...
-    
+
     async def do_rbdt(self, address: IPv4Address) -> None:
         """
         Read Broadcast Distribution Table
@@ -102,7 +124,7 @@ class CmdShell(Cmd):
         usage: rbdt address
         """
         ...
-    
+
     async def do_wbdt(self, address: IPv4Address, *args: IPv4Address) -> None:
         """
         Write Broadcast Distribution Table
@@ -110,7 +132,7 @@ class CmdShell(Cmd):
         usage: wbdt address [ address ... ]
         """
         ...
-    
+
     async def do_rfdt(self, address: IPv4Address) -> None:
         """
         Read Foreign Device Table
@@ -118,7 +140,7 @@ class CmdShell(Cmd):
         usage: rfdt address
         """
         ...
-    
+
     async def do_config(self, format: str) -> None:
         """
         Display the configuration as JSON, YAML, or RDF
@@ -126,11 +148,7 @@ class CmdShell(Cmd):
         usage: config ( json | yaml | rdf )
         """
         ...
-    
 
+async def main() -> None: ...
 
-async def main() -> None:
-    ...
-
-if __name__ == "__main__":
-    ...
+if __name__ == "__main__": ...

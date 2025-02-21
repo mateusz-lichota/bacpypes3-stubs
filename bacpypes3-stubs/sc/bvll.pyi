@@ -15,14 +15,14 @@ BACnet Secure Connect Virtual Link Layer Protocol Data Units
 _debug = ...
 _log = ...
 pdu_types = ...
-def register_bvlpdu_type(class_):
-    ...
 
-@bacpypes_debugging
+def register_bvlpdu_type(class_): ...
+
 class HeaderOption(PDUData, DebugContents):
     """
     Header Option
     """
+
     _debug: Callable[..., None]
     _debug_contents: Tuple[str, ...] = ...
     debug_contents = ...
@@ -32,13 +32,19 @@ class HeaderOption(PDUData, DebugContents):
     more_options: bool = ...
     header_marker: int = ...
     header_length: int = ...
-    def __init__(self, *args, option_type: int = ..., header_data_flag: bool = ..., must_understand: bool = ..., more_options: bool = ..., **kwargs) -> None:
-        ...
-    
+    def __init__(
+        self,
+        *args,
+        option_type: int = ...,
+        header_data_flag: bool = ...,
+        must_understand: bool = ...,
+        more_options: bool = ...,
+        **kwargs,
+    ) -> None: ...
     def encode(self) -> PDU:
         """Encode the contents of the HeaderOption into a PDU."""
         ...
-    
+
     @classmethod
     def decode(class_, pdu: PDU) -> HeaderOption:
         """
@@ -46,30 +52,28 @@ class HeaderOption(PDUData, DebugContents):
         of its subclasses.
         """
         ...
-    
-
 
 class SecurePathHeaderOption(HeaderOption):
-    def __init__(self) -> None:
-        ...
-    
-
+    def __init__(self) -> None: ...
 
 class ProprietaryHeaderOption(HeaderOption):
     _debug: Callable[..., None]
     _debug_contents: Tuple[str, ...] = ...
     vendor_identifier: int = ...
     proprietary_option_type: int = ...
-    def __init__(self, *args, vendor_identifier: int = ..., proprietary_option_type: int = ..., **kwargs) -> None:
-        ...
-    
+    def __init__(
+        self,
+        *args,
+        vendor_identifier: int = ...,
+        proprietary_option_type: int = ...,
+        **kwargs,
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class LPCI(PCI, DebugContents):
     """
     Link Layer Protocol Control Information
     """
+
     _debug: Callable[..., None]
     _debug_contents: Tuple[str, ...] = ...
     result = ...
@@ -92,75 +96,51 @@ class LPCI(PCI, DebugContents):
     bvlcDestinationVirtualAddress: Optional[VirtualAddress] = ...
     bvlcDestinationOptions: List[HeaderOption]
     bvlcDataOptions: List[HeaderOption]
-    def __init__(self, *args, **kwargs) -> None:
-        ...
-    
-    def update(self, bvlci: LPCI) -> None:
-        ...
-    
+    def __init__(self, *args, **kwargs) -> None: ...
+    def update(self, bvlci: LPCI) -> None: ...
     def encode(self) -> PDU:
         """Encode the contents of the LPCI into a PDU."""
         ...
-    
+
     @classmethod
     def decode(class_, pdu: PDU) -> LPCI:
         """Decode the contents of the PDU and return a LPCI."""
         ...
-    
-    def lpci_contents(self, use_dict=..., as_class=...): # -> dict[Any, Any]:
+
+    def lpci_contents(self, use_dict=..., as_class=...):  # -> dict[Any, Any]:
         """Return the contents of an object as a dict."""
         ...
-    
 
-
-@bacpypes_debugging
 class LPDU(LPCI, PDUData):
     """
     Link Layer Protocol Data Unit
     """
-    def __init__(self, *args, **kwargs) -> None:
-        ...
-    
-    def encode(self) -> PDU:
-        ...
-    
+    def __init__(self, *args, **kwargs) -> None: ...
+    def encode(self) -> PDU: ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-    def lpdu_contents(self, use_dict=..., as_class=...) -> dict:
-        ...
-    
+    def decode(class_, pdu: PDU) -> LPDU: ...
+    def lpdu_contents(self, use_dict=..., as_class=...) -> dict: ...
     def dict_contents(self, use_dict=..., as_class=...) -> dict:
         """Return the contents of an object as a dict."""
         ...
-    
+
     debug_contents = ...
 
-
-@bacpypes_debugging
 class BVLLCodec(Client[PDU], Server[LPDU]):
     _debug: Callable[..., None]
-    def __init__(self, cid=..., sid=...) -> None:
-        ...
-    
-    async def indication(self, lpdu: LPDU) -> None:
-        ...
-    
-    async def confirmation(self, pdu: PDU) -> None:
-        ...
-    
+    def __init__(self, cid=..., sid=...) -> None: ...
+    async def indication(self, lpdu: LPDU) -> None: ...
+    async def confirmation(self, pdu: PDU) -> None: ...
 
-
-@bacpypes_debugging
-def key_value_contents(use_dict=..., as_class=..., key_values=...): # -> dict[Any, Any]:
+def key_value_contents(
+    use_dict=..., as_class=..., key_values=...
+):  # -> dict[Any, Any]:
     """
     Update the contents of a dictionary with the keys and values that
     are not None, and if the value as a dict_contents() function then
     call it for nested details.
     """
     ...
-
 @register_bvlpdu_type
 class Result(LPDU):
     _debug: Callable[..., None]
@@ -172,51 +152,42 @@ class Result(LPDU):
     error_class: ErrorClass
     error_code: ErrorCode
     error_details: str
-    def __init__(self, result_function: int, result_code: int, error_header_marker: int = ..., error_class: Optional[ErrorClass] = ..., error_code: Optional[ErrorCode] = ..., error_details: str = ..., *args, **kwargs) -> None:
-        ...
-    
-    def encode(self) -> PDU:
-        ...
-    
+    def __init__(
+        self,
+        result_function: int,
+        result_code: int,
+        error_header_marker: int = ...,
+        error_class: Optional[ErrorClass] = ...,
+        error_code: Optional[ErrorCode] = ...,
+        error_details: str = ...,
+        *args,
+        **kwargs,
+    ) -> None: ...
+    def encode(self) -> PDU: ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-    def lpdu_contents(self, use_dict=..., as_class=...): # -> dict[Any, Any]:
+    def decode(class_, pdu: PDU) -> LPDU: ...
+    def lpdu_contents(self, use_dict=..., as_class=...):  # -> dict[Any, Any]:
         """Return the contents of an object as a dict."""
         ...
-    
-
 
 @register_bvlpdu_type
 class EncapsulatedNPDU(LPDU):
     _debug: Callable[..., None]
     _debug_contents: Tuple[str, ...] = ...
     bvlcFunction = ...
-    def __init__(self, *args, **kwargs) -> None:
-        ...
-    
-    def encode(self) -> PDU:
-        ...
-    
+    def __init__(self, *args, **kwargs) -> None: ...
+    def encode(self) -> PDU: ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-    def lpdu_contents(self, use_dict=..., as_class=...): # -> dict[Any, Any]:
+    def decode(class_, pdu: PDU) -> LPDU: ...
+    def lpdu_contents(self, use_dict=..., as_class=...):  # -> dict[Any, Any]:
         """Return the contents of an object as a dict."""
         ...
-    
-
 
 @register_bvlpdu_type
 class AddressResolution(LPDU):
     bvlcFunction = ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-
+    def decode(class_, pdu: PDU) -> LPDU: ...
 
 @register_bvlpdu_type
 class AddressResolutionACK(LPDU):
@@ -224,21 +195,13 @@ class AddressResolutionACK(LPDU):
     _debug_contents: Tuple[str, ...] = ...
     bvlcFunction = ...
     websocket_uris: str
-    def __init__(self, websocket_uris: str = ..., *args, **kwargs) -> None:
-        ...
-    
-    def encode(self) -> PDU:
-        ...
-    
+    def __init__(self, websocket_uris: str = ..., *args, **kwargs) -> None: ...
+    def encode(self) -> PDU: ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-    def lpdu_contents(self, use_dict=..., as_class=...): # -> dict[Any, Any]:
+    def decode(class_, pdu: PDU) -> LPDU: ...
+    def lpdu_contents(self, use_dict=..., as_class=...):  # -> dict[Any, Any]:
         """Return the contents of an object as a dict."""
         ...
-    
-
 
 @register_bvlpdu_type
 class Advertisement(LPDU):
@@ -249,30 +212,27 @@ class Advertisement(LPDU):
     accept_direct_connections: int
     maximum_bvlc_length: int
     maximum_npdu_length: int
-    def __init__(self, hub_connection_status: int, accept_direct_connections: int, maximum_bvlc_length: int, maximum_npdu_length: int, *args, **kwargs) -> None:
-        ...
-    
-    def encode(self) -> PDU:
-        ...
-    
+    def __init__(
+        self,
+        hub_connection_status: int,
+        accept_direct_connections: int,
+        maximum_bvlc_length: int,
+        maximum_npdu_length: int,
+        *args,
+        **kwargs,
+    ) -> None: ...
+    def encode(self) -> PDU: ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-    def lpdu_contents(self, use_dict=..., as_class=...): # -> dict[Any, Any]:
+    def decode(class_, pdu: PDU) -> LPDU: ...
+    def lpdu_contents(self, use_dict=..., as_class=...):  # -> dict[Any, Any]:
         """Return the contents of an object as a dict."""
         ...
-    
-
 
 @register_bvlpdu_type
 class AdvertisementSolicitation(LPDU):
     bvlcFunction = ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-
+    def decode(class_, pdu: PDU) -> LPDU: ...
 
 @register_bvlpdu_type
 class ConnectRequest(LPDU):
@@ -283,21 +243,21 @@ class ConnectRequest(LPDU):
     device_uuid: UUID
     maximum_bvlc_length: int
     maximum_npdu_length: int
-    def __init__(self, vmac_address: VirtualAddress, device_uuid: UUID, maximum_bvlc_length: int, maximum_npdu_length: int, *args, **kwargs) -> None:
-        ...
-    
-    def encode(self) -> PDU:
-        ...
-    
+    def __init__(
+        self,
+        vmac_address: VirtualAddress,
+        device_uuid: UUID,
+        maximum_bvlc_length: int,
+        maximum_npdu_length: int,
+        *args,
+        **kwargs,
+    ) -> None: ...
+    def encode(self) -> PDU: ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-    def lpdu_contents(self, use_dict=..., as_class=...): # -> dict[Any, Any]:
+    def decode(class_, pdu: PDU) -> LPDU: ...
+    def lpdu_contents(self, use_dict=..., as_class=...):  # -> dict[Any, Any]:
         """Return the contents of an object as a dict."""
         ...
-    
-
 
 @register_bvlpdu_type
 class ConnectAccept(LPDU):
@@ -308,57 +268,45 @@ class ConnectAccept(LPDU):
     device_uuid: UUID
     maximum_bvlc_length: int
     maximum_npdu_length: int
-    def __init__(self, vmac_address: VirtualAddress, device_uuid: UUID, maximum_bvlc_length: int, maximum_npdu_length: int, *args, **kwargs) -> None:
-        ...
-    
-    def encode(self) -> PDU:
-        ...
-    
+    def __init__(
+        self,
+        vmac_address: VirtualAddress,
+        device_uuid: UUID,
+        maximum_bvlc_length: int,
+        maximum_npdu_length: int,
+        *args,
+        **kwargs,
+    ) -> None: ...
+    def encode(self) -> PDU: ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-    def lpdu_contents(self, use_dict=..., as_class=...): # -> dict[Any, Any]:
+    def decode(class_, pdu: PDU) -> LPDU: ...
+    def lpdu_contents(self, use_dict=..., as_class=...):  # -> dict[Any, Any]:
         """Return the contents of an object as a dict."""
         ...
-    
-
 
 @register_bvlpdu_type
 class DisconnectRequest(LPDU):
     bvlcFunction = ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-
+    def decode(class_, pdu: PDU) -> LPDU: ...
 
 @register_bvlpdu_type
 class DisconnectACK(LPDU):
     bvlcFunction = ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-
+    def decode(class_, pdu: PDU) -> LPDU: ...
 
 @register_bvlpdu_type
 class HeartbeatRequest(LPDU):
     bvlcFunction = ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-
+    def decode(class_, pdu: PDU) -> LPDU: ...
 
 @register_bvlpdu_type
 class HeartbeatACK(LPDU):
     bvlcFunction = ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-
+    def decode(class_, pdu: PDU) -> LPDU: ...
 
 @register_bvlpdu_type
 class ProprietaryMessage(LPDU):
@@ -367,19 +315,12 @@ class ProprietaryMessage(LPDU):
     bvlcFunction = ...
     vendor_identifier: int
     proprietary_function: int
-    def __init__(self, vendor_identifier: int, proprietary_function: int, *args, **kwargs) -> None:
-        ...
-    
-    def encode(self) -> PDU:
-        ...
-    
+    def __init__(
+        self, vendor_identifier: int, proprietary_function: int, *args, **kwargs
+    ) -> None: ...
+    def encode(self) -> PDU: ...
     @classmethod
-    def decode(class_, pdu: PDU) -> LPDU:
-        ...
-    
-    def lpdu_contents(self, use_dict=..., as_class=...): # -> dict[Any, Any]:
+    def decode(class_, pdu: PDU) -> LPDU: ...
+    def lpdu_contents(self, use_dict=..., as_class=...):  # -> dict[Any, Any]:
         """Return the contents of an object as a dict."""
         ...
-    
-
-

@@ -197,7 +197,6 @@ class TagList(Iterable[Tag]):
         self, indent: int = ..., file: TextIO = ..., _ids: Optional[_List[_Any]] = ...
     ) -> None: ...
 
-@bacpypes_debugging
 class ElementMetaclass(type):
     """
     Amazing documentation here.
@@ -216,7 +215,6 @@ class ElementMetaclass(type):
         cls, *args: _Any, **kwargs: _Any
     ) -> Union[ElementMetaclass, Element]: ...
 
-@bacpypes_debugging
 class ElementInterface:
     """
     Amazing documentation here.
@@ -261,7 +259,6 @@ class ElementInterface:
 
 class Element(ElementInterface, metaclass=ElementMetaclass): ...
 
-@bacpypes_debugging
 class Atomic(Element):
     """
     Amazing documentation here.
@@ -277,7 +274,6 @@ class Atomic(Element):
         **kwargs: _Any,
     ) -> None: ...
 
-@bacpypes_debugging
 class Null(Atomic, tuple[()]):
     """
     Amazing documentation here.
@@ -298,7 +294,6 @@ class Null(Atomic, tuple[()]):
         """Decode an element from a tag list."""
         ...
 
-@bacpypes_debugging
 class Boolean(Atomic, int):
     """
     Note that this is a subclass of the int built-in type, bool cannot be.
@@ -325,7 +320,6 @@ class Boolean(Atomic, int):
         """Decode an element from a tag list."""
         ...
 
-@bacpypes_debugging
 class Unsigned(Atomic, int):
     """
     Amazing documentation here.
@@ -363,7 +357,6 @@ class Unsigned16(Unsigned):
 
     _high_limit = ...
 
-@bacpypes_debugging
 class Integer(Atomic, int):
     """
     Amazing documentation here.
@@ -387,7 +380,6 @@ class Integer(Atomic, int):
         """Decode an integer from a tag list."""
         ...
 
-@bacpypes_debugging
 class Real(Atomic, float):
     """
     Amazing documentation here.
@@ -423,7 +415,6 @@ class Double(Real):
         """Decode a double from a tag list."""
         ...
 
-@bacpypes_debugging
 class OctetString(Atomic, bytes):
     """
     Amazing documentation here.
@@ -449,7 +440,6 @@ class OctetString(Atomic, bytes):
         """
         ...
 
-@bacpypes_debugging
 class CharacterString(Atomic, str):
     """
     Amazing documentation here.
@@ -476,7 +466,6 @@ class CharacterString(Atomic, str):
         """Decode a character string from a tag."""
         ...
 
-@bacpypes_debugging
 class BitStringMetaclass(ElementMetaclass):
     """
     Amazing documentation here.
@@ -491,7 +480,6 @@ class BitStringMetaclass(ElementMetaclass):
     ) -> BitStringMetaclass: ...
     def __call__(cls, *args: _Any, **kwargs: _Any) -> BitString: ...
 
-@bacpypes_debugging
 class BitString(Atomic, list[Literal[0, 1]], metaclass=BitStringMetaclass):
     """
     Amazing documentation here.
@@ -518,7 +506,6 @@ class BitString(Atomic, list[Literal[0, 1]], metaclass=BitStringMetaclass):
         """
         ...
 
-@bacpypes_debugging
 class EnumeratedMetaclass(ElementMetaclass):
     """
     Amazing documentation here.
@@ -533,7 +520,6 @@ class EnumeratedMetaclass(ElementMetaclass):
     ) -> EnumeratedMetaclass: ...
     def __call__(cls, *args: _Any, **kwargs: _Any) -> Enumerated: ...
 
-@bacpypes_debugging
 class Enumerated(Atomic, int, metaclass=EnumeratedMetaclass):
     """
     Amazing documentation here.
@@ -578,7 +564,6 @@ _special_dow = ...
 _special_dow_inv = ...
 _date_patterns = ...
 
-@bacpypes_debugging
 class Date(Atomic, tuple[int, int, int, int]):
     """
     Amazing documentation here.
@@ -625,7 +610,6 @@ class Date(Atomic, tuple[int, int, int, int]):
 
 _time_regex = ...
 
-@bacpypes_debugging
 class Time(Atomic, tuple[int, int, int, int]):
     """
     Amazing documentation here.
@@ -1215,7 +1199,6 @@ class PropertyIdentifier(Enumerated):
     zoneMembers = ...
     zoneTo = ...
 
-@bacpypes_debugging
 class ObjectIdentifier(Atomic, tuple[ObjectType, str | int]):
     """
     Amazing documentation here.

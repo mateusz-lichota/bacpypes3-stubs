@@ -21,25 +21,31 @@ BACPYPES_FOREIGN_BBMD = ...
 BACPYPES_FOREIGN_TTL = ...
 BACPYPES_BBMD_BDT = ...
 logging_handlers: Dict[logging.Logger, List[logging.StreamHandler]] = ...
-@bacpypes_debugging
-def create_log_handler(logger: Union[str, logging.Logger] = ..., handler: Optional[logging.StreamHandler] = ..., level: int = ..., color: Optional[int] = ...) -> None:
+
+def create_log_handler(
+    logger: Union[str, logging.Logger] = ...,
+    handler: Optional[logging.StreamHandler] = ...,
+    level: int = ...,
+    color: Optional[int] = ...,
+) -> None:
     """
     Add a stream handler with our custom formatter to a logger.
     """
     ...
 
-@bacpypes_debugging
-def remove_log_handler(logger: Union[str, logging.Logger] = ..., handler: Optional[logging.StreamHandler] = ...) -> None:
+def remove_log_handler(
+    logger: Union[str, logging.Logger] = ...,
+    handler: Optional[logging.StreamHandler] = ...,
+) -> None:
     """
     Remove the stream handlers from a logger.
     """
     ...
 
-@bacpypes_debugging
-def create_log_handlers(loggers: Iterable[str], use_color: Union[bool, int, None] = ...) -> None:
-    ...
+def create_log_handlers(
+    loggers: Iterable[str], use_color: Union[bool, int, None] = ...
+) -> None: ...
 
-@bacpypes_debugging
 class ArgumentParser(argparse.ArgumentParser):
     """
     ArgumentParser extends the one with the same name from the argparse module
@@ -50,47 +56,47 @@ class ArgumentParser(argparse.ArgumentParser):
         --color                         debug in color
         --route-aware                   turn on route aware
     """
+
     _debug: Callable[..., None]
     def __init__(self, **kwargs: Any) -> None:
         """Follow normal initialization and add BACpypes arguments."""
         ...
-    
+
     def update_os_env(self) -> None:
         """Update the settings with values from the environment, if provided."""
         ...
-    
-    def parse_args(self, args: Optional[Sequence[str]] = ..., namespace: Optional[argparse.Namespace] = ...) -> argparse.Namespace:
+
+    def parse_args(
+        self,
+        args: Optional[Sequence[str]] = ...,
+        namespace: Optional[argparse.Namespace] = ...,
+    ) -> argparse.Namespace:
         """Parse the arguments as usual, then add default processing."""
         ...
-    
+
     def expand_args(self, result_args: argparse.Namespace) -> None:
         """Expand the arguments and/or update the settings."""
         ...
-    
+
     def interpret_debugging(self, result_args: argparse.Namespace) -> None:
         """Take the result of parsing the args and interpret them."""
         ...
-    
 
-
-@bacpypes_debugging
 class SimpleArgumentParser(ArgumentParser):
     """
     SimpleArgumentParser extends the ArgumentParser with the arguments for
     building simple applications.
     """
+
     _debug: Callable[..., None]
     def __init__(self, **kwargs: Any) -> None:
         """Follow normal initialization and add BACpypes arguments."""
         ...
-    
+
     def expand_args(self, result_args: argparse.Namespace) -> None:
         """Expand the arguments and/or update the settings."""
         ...
-    
 
-
-@bacpypes_debugging
 class INIArgumentParser(ArgumentParser):
     """
     INIArgumentParser extends the ArgumentParser with the functionality to
@@ -99,22 +105,20 @@ class INIArgumentParser(ArgumentParser):
 
         --ini INI       provide a separate INI file
     """
+
     _debug: Callable[..., None]
     def __init__(self, **kwargs: Any) -> None:
         """Follow normal initialization and add BACpypes arguments."""
         ...
-    
+
     def update_os_env(self) -> None:
         """Update the settings with values from the environment, if provided."""
         ...
-    
+
     def expand_args(self, result_args: argparse.Namespace) -> None:
         """Take the result of parsing the args and interpret them."""
         ...
-    
 
-
-@bacpypes_debugging
 class JSONArgumentParser(ArgumentParser):
     """
     JSONArgumentParser extends the ArgumentParser with the functionality to
@@ -123,22 +127,20 @@ class JSONArgumentParser(ArgumentParser):
 
         --json JSON    provide a separate JSON file
     """
+
     _debug: Callable[..., None]
     def __init__(self, **kwargs: Any) -> None:
         """Follow normal initialization and add BACpypes arguments."""
         ...
-    
+
     def update_os_env(self) -> None:
         """Update the settings with values from the environment, if provided."""
         ...
-    
+
     def expand_args(self, result_args: argparse.Namespace) -> None:
         """Take the result of parsing the args and interpret them."""
         ...
-    
 
-
-@bacpypes_debugging
 class YAMLArgumentParser(ArgumentParser):
     """
     YAMLArgumentParser extends the ArgumentParser with the functionality to
@@ -147,18 +149,16 @@ class YAMLArgumentParser(ArgumentParser):
 
         --yaml YAML    provide a separate YAML file
     """
+
     _debug: Callable[..., None]
     def __init__(self, **kwargs: Any) -> None:
         """Follow normal initialization and add BACpypes arguments."""
         ...
-    
+
     def update_os_env(self) -> None:
         """Update the settings with values from the environment, if provided."""
         ...
-    
+
     def expand_args(self, result_args: argparse.Namespace) -> None:
         """Take the result of parsing the args and interpret them."""
         ...
-    
-
-

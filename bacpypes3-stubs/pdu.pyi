@@ -44,25 +44,26 @@ ethernet_re = ...
 interface_port_re = ...
 host_port_re = ...
 network_types: Dict[str, type]
-@bacpypes_debugging
+
 class AddressMetaclass(type):
     """
     Amazing documentation here.
     """
+
     _debug: Callable[..., None]
-    def __new__(cls: Any, clsname: str, superclasses: Tuple[type, ...], attributedict: Dict[str, Any]) -> AddressMetaclass:
-        ...
-    
-    def __call__(cls, *args: Any, **kwargs: Any) -> Address:
-        ...
-    
+    def __new__(
+        cls: Any,
+        clsname: str,
+        superclasses: Tuple[type, ...],
+        attributedict: Dict[str, Any],
+    ) -> AddressMetaclass: ...
+    def __call__(cls, *args: Any, **kwargs: Any) -> Address: ...
 
-
-@bacpypes_debugging
 class Address(metaclass=AddressMetaclass):
     """
     Amazing documentation here.
     """
+
     _debug: Callable[..., None]
     _warning: Callable[..., None]
     nullAddr = ...
@@ -77,322 +78,287 @@ class Address(metaclass=AddressMetaclass):
     addrAddr: Optional[bytes]
     addrLen: Optional[int]
     addrRoute: Optional[Address]
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        ...
-    
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     @property
-    def is_null(self) -> bool:
-        ...
-    
+    def is_null(self) -> bool: ...
     @property
-    def is_localbroadcast(self) -> bool:
-        ...
-    
+    def is_localbroadcast(self) -> bool: ...
     @property
-    def is_localstation(self) -> bool:
-        ...
-    
+    def is_localstation(self) -> bool: ...
     @property
-    def is_remotebroadcast(self) -> bool:
-        ...
-    
+    def is_remotebroadcast(self) -> bool: ...
     @property
-    def is_remotestation(self) -> bool:
-        ...
-    
+    def is_remotestation(self) -> bool: ...
     @property
-    def is_globalbroadcast(self) -> bool:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
-    def __repr__(self) -> str:
-        ...
-    
-    def __hash__(self) -> int:
-        ...
-    
-    def __eq__(self, arg: object) -> bool:
-        ...
-    
-    def __ne__(self, arg: object) -> bool:
-        ...
-    
+    def is_globalbroadcast(self) -> bool: ...
+    def __str__(self) -> str: ...
+    def __repr__(self) -> str: ...
+    def __hash__(self) -> int: ...
+    def __eq__(self, arg: object) -> bool: ...
+    def __ne__(self, arg: object) -> bool: ...
     def match(self, other: Address) -> bool:
         """
         Match this address as a source address with the 'other' as a destination,
         so a local station matches a local broadcast, etc.
         """
         ...
-    
-    def dict_contents(self, use_dict: Optional[Dict[str, Any]] = ..., as_class: Union[Callable[[], Dict[str, Any]]] = ...) -> Dict[str, Any]:
+
+    def dict_contents(
+        self,
+        use_dict: Optional[Dict[str, Any]] = ...,
+        as_class: Union[Callable[[], Dict[str, Any]]] = ...,
+    ) -> Dict[str, Any]:
         """Return the contents of an object as a dict."""
         ...
-    
 
-
-@bacpypes_debugging
 class NullAddress(Address):
     """
     Amazing documentation here.
     """
-    def __init__(self, network_type: str = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
+    def __init__(self, network_type: str = ...) -> None: ...
+    def __str__(self) -> str: ...
 
-
-@bacpypes_debugging
 class LocalStation(Address):
     """
     Amazing documentation here.
     """
-    def __init__(self, addr: Union[int, bytes, bytearray], route: Optional[Address] = ..., network_type: Optional[str] = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
+    def __init__(
+        self,
+        addr: Union[int, bytes, bytearray],
+        route: Optional[Address] = ...,
+        network_type: Optional[str] = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
-
-@bacpypes_debugging
 class LocalBroadcast(Address):
     """
     Amazing documentation here.
     """
-    def __init__(self, route: Optional[Address] = ..., network_type: Optional[str] = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
-
+    def __init__(
+        self, route: Optional[Address] = ..., network_type: Optional[str] = ...
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
 class RemoteStation(Address):
     """
     Amazing documentation here.
     """
+
     addrNet: int
     addrAddr: bytes
     addrLen: int
-    def __init__(self, net: int, addr: Union[int, bytes, bytearray], route: Optional[Address] = ..., network_type: Optional[str] = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
-
+    def __init__(
+        self,
+        net: int,
+        addr: Union[int, bytes, bytearray],
+        route: Optional[Address] = ...,
+        network_type: Optional[str] = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
 class RemoteBroadcast(Address):
     """
     Amazing documentation here.
     """
-    addrNet: int
-    def __init__(self, net: int, route: Optional[Address] = ..., network_type: Optional[str] = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
 
+    addrNet: int
+    def __init__(
+        self,
+        net: int,
+        route: Optional[Address] = ...,
+        network_type: Optional[str] = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
 class GlobalBroadcast(Address):
     """
     Amazing documentation here.
     """
-    def __init__(self, route: Optional[Address] = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
+    def __init__(self, route: Optional[Address] = ...) -> None: ...
+    def __str__(self) -> str: ...
 
-
-@bacpypes_debugging
 class ARCNETAddress(Address):
     """
     Amazing documentation here.
     """
-    def __init__(self, addr: Union[int, bytes, bytearray, str], route: Optional[Address] = ..., network_type: str = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
+    def __init__(
+        self,
+        addr: Union[int, bytes, bytearray, str],
+        route: Optional[Address] = ...,
+        network_type: str = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
-
-@bacpypes_debugging
 class MSTPAddress(Address):
     """
     Amazing documentation here.
     """
-    def __init__(self, addr: Union[int, bytes, bytearray, str], route: Optional[Address] = ..., network_type: str = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
+    def __init__(
+        self,
+        addr: Union[int, bytes, bytearray, str],
+        route: Optional[Address] = ...,
+        network_type: str = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
-
-@bacpypes_debugging
 class EthernetAddress(Address):
     """
     Amazing documentation here.
     """
-    def __init__(self, addr: Union[str, bytes, bytearray], route: Optional[Address] = ..., network_type: str = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
+    def __init__(
+        self,
+        addr: Union[str, bytes, bytearray],
+        route: Optional[Address] = ...,
+        network_type: str = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
-
-@bacpypes_debugging
 class EthernetBroadcastAddress(LocalBroadcast, EthernetAddress):
     """
     Amazing documentation here.
     """
-    def __init__(self) -> None:
-        ...
-    
+    def __init__(self) -> None: ...
 
-
-@bacpypes_debugging
 class IPv4Address(Address, ipaddress.IPv4Interface):
     """
     Amazing documentation here.
     """
+
     addrPort: int
     addrTuple: Tuple[str, int]
     addrBroadcastTuple: Tuple[str, int]
-    def __init__(self, addr: Union[LocalStation, RemoteStation, int, str, bytes, bytearray, Tuple[Union[str, int], int], ipaddress.IPv4Address,], port: int = ..., route: Optional[Address] = ..., network_type: str = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
+    def __init__(
+        self,
+        addr: Union[
+            LocalStation,
+            RemoteStation,
+            int,
+            str,
+            bytes,
+            bytearray,
+            Tuple[Union[str, int], int],
+            ipaddress.IPv4Address,
+        ],
+        port: int = ...,
+        route: Optional[Address] = ...,
+        network_type: str = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
-
-@bacpypes_debugging
 class IPv6Address(Address, ipaddress.IPv6Interface):
     """
     Amazing documentation here.
     """
+
     addrPort: int
     addrTuple: Tuple[str, int, int, int]
-    def __init__(self, addr: Union[LocalStation, RemoteStation, int, str, bytes, bytearray, Tuple[Union[str, int], int], ipaddress.IPv6Address,], port: int = ..., interface: Union[None, int, str] = ..., route: Optional[Address] = ..., network_type: str = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
+    def __init__(
+        self,
+        addr: Union[
+            LocalStation,
+            RemoteStation,
+            int,
+            str,
+            bytes,
+            bytearray,
+            Tuple[Union[str, int], int],
+            ipaddress.IPv6Address,
+        ],
+        port: int = ...,
+        interface: Union[None, int, str] = ...,
+        route: Optional[Address] = ...,
+        network_type: str = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
-
-@bacpypes_debugging
 class IPv6MulticastAddress(LocalBroadcast, ipaddress.IPv6Address):
     """
     Amazing documentation here.
     """
-    def __init__(self, addr: str, port: int = ..., interface: Union[None, int, str] = ..., route: Optional[Address] = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
+    def __init__(
+        self,
+        addr: str,
+        port: int = ...,
+        interface: Union[None, int, str] = ...,
+        route: Optional[Address] = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
-
-@bacpypes_debugging
 class IPv6InterfaceLocalMulticastAddress(IPv6MulticastAddress):
     """
     Amazing documentation here.
     """
-    def __init__(self, port: int = ..., interface: Union[None, int, str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self, port: int = ..., interface: Union[None, int, str] = ...
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class IPv6LinkLocalMulticastAddress(IPv6MulticastAddress):
     """
     Amazing documentation here.
     """
-    def __init__(self, port: int = ..., interface: Union[None, int, str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self, port: int = ..., interface: Union[None, int, str] = ...
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class IPv6RealmLocalMulticastAddress(IPv6MulticastAddress):
     """
     Amazing documentation here.
     """
-    def __init__(self, port: int = ..., interface: Union[None, int, str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self, port: int = ..., interface: Union[None, int, str] = ...
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class IPv6AdminLocalMulticastAddress(IPv6MulticastAddress):
     """
     Amazing documentation here.
     """
-    def __init__(self, port: int = ..., interface: Union[None, int, str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self, port: int = ..., interface: Union[None, int, str] = ...
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class IPv6SiteLocalMulticastAddress(IPv6MulticastAddress):
     """
     Amazing documentation here.
     """
-    def __init__(self, port: int = ..., interface: Union[None, int, str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self, port: int = ..., interface: Union[None, int, str] = ...
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class IPv6OrganizationLocalMulticastAddress(IPv6MulticastAddress):
     """
     Amazing documentation here.
     """
-    def __init__(self, port: int = ..., interface: Union[None, int, str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self, port: int = ..., interface: Union[None, int, str] = ...
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class IPv6GlobalMulticastAddress(IPv6MulticastAddress):
     """
     Amazing documentation here.
     """
-    def __init__(self, port: int = ..., interface: Union[None, int, str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self, port: int = ..., interface: Union[None, int, str] = ...
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class VirtualAddress(Address):
     """
     Amazing documentation here.
     """
-    def __init__(self, addr: Union[int, bytes, bytearray, str], route: Optional[Address] = ..., network_type: str = ...) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
-
+    def __init__(
+        self,
+        addr: Union[int, bytes, bytearray, str],
+        route: Optional[Address] = ...,
+        network_type: str = ...,
+    ) -> None: ...
+    def __str__(self) -> str: ...
 
 network_types = ...
-@bacpypes_debugging
+
 class PCI(DebugContents):
     """
     Amazing documentation here.
     """
+
     _debug: Callable[..., None]
     _debug_contents: Tuple[str, ...] = ...
     pduSource: Optional[Any]
@@ -400,85 +366,82 @@ class PCI(DebugContents):
     pduExpectingReply: bool
     pduNetworkPriority: int
     pduUserData: Optional[bytes]
-    def __init__(self, *, source: Optional[Any] = ..., destination: Optional[Any] = ..., expectingReply: bool = ..., networkPriority: int = ..., user_data: Optional[bytes] = ...) -> None:
-        ...
-    
+    def __init__(
+        self,
+        *,
+        source: Optional[Any] = ...,
+        destination: Optional[Any] = ...,
+        expectingReply: bool = ...,
+        networkPriority: int = ...,
+        user_data: Optional[bytes] = ...,
+    ) -> None: ...
     def update(self, pci: PCI) -> None:
         """Copy the PCI fields."""
         ...
-    
-    def pci_contents(self, use_dict: Optional[Dict[str, Any]] = ..., as_class: Union[Callable[[], Dict[str, Any]]] = ...) -> Dict[str, Any]:
+
+    def pci_contents(
+        self,
+        use_dict: Optional[Dict[str, Any]] = ...,
+        as_class: Union[Callable[[], Dict[str, Any]]] = ...,
+    ) -> Dict[str, Any]:
         """Return the PCI contents as a dictionary or some other kind of mapping class."""
         ...
-    
-    def dict_contents(self, use_dict: Optional[Dict[str, Any]] = ..., as_class: Union[Callable[[], Dict[str, Any]]] = ...) -> Dict[str, Any]:
+
+    def dict_contents(
+        self,
+        use_dict: Optional[Dict[str, Any]] = ...,
+        as_class: Union[Callable[[], Dict[str, Any]]] = ...,
+    ) -> Dict[str, Any]:
         """Return the PCI contents as a dictionary or some other kind of mapping class."""
         ...
-    
 
-
-@bacpypes_debugging
 class PDUData:
     """
     Amazing documentation here.
     """
+
     _debug: Callable[..., None]
     pduData: bytearray
-    def __init__(self, data: Union[bytes, bytearray, PDUData, None] = ...) -> None:
-        ...
-    
-    def get(self) -> int:
-        ...
-    
-    def get_data(self, dlen: int) -> bytearray:
-        ...
-    
-    def get_short(self) -> int:
-        ...
-    
-    def get_long(self) -> int:
-        ...
-    
-    def put(self, n: int) -> None:
-        ...
-    
-    def put_data(self, data: Union[bytes, bytearray, List[int]]) -> None:
-        ...
-    
-    def put_short(self, n: int) -> None:
-        ...
-    
-    def put_long(self, n: int) -> None:
-        ...
-    
-    def debug_contents(self, indent: int = ..., file: TextIO = ..., _ids: Optional[List[Any]] = ...) -> None:
-        ...
-    
-    def pdudata_contents(self, use_dict: Optional[Dict[str, Any]] = ..., as_class: Union[Callable[[], Dict[str, Any]]] = ...) -> Dict[str, Any]:
+    def __init__(self, data: Union[bytes, bytearray, PDUData, None] = ...) -> None: ...
+    def get(self) -> int: ...
+    def get_data(self, dlen: int) -> bytearray: ...
+    def get_short(self) -> int: ...
+    def get_long(self) -> int: ...
+    def put(self, n: int) -> None: ...
+    def put_data(self, data: Union[bytes, bytearray, List[int]]) -> None: ...
+    def put_short(self, n: int) -> None: ...
+    def put_long(self, n: int) -> None: ...
+    def debug_contents(
+        self, indent: int = ..., file: TextIO = ..., _ids: Optional[List[Any]] = ...
+    ) -> None: ...
+    def pdudata_contents(
+        self,
+        use_dict: Optional[Dict[str, Any]] = ...,
+        as_class: Union[Callable[[], Dict[str, Any]]] = ...,
+    ) -> Dict[str, Any]:
         """Return the PCI contents as a dictionary or some other kind of mapping class."""
         ...
-    
-    def dict_contents(self, use_dict: Optional[Dict[str, Any]] = ..., as_class: Union[Callable[[], Dict[str, Any]]] = ...) -> Dict[str, Any]:
+
+    def dict_contents(
+        self,
+        use_dict: Optional[Dict[str, Any]] = ...,
+        as_class: Union[Callable[[], Dict[str, Any]]] = ...,
+    ) -> Dict[str, Any]:
         """Return the PCI contents as a dictionary or some other kind of mapping class."""
         ...
-    
 
-
-@bacpypes_debugging
 class PDU(PCI, PDUData):
     """
     Amazing documentation here.
     """
+
     _debug: Callable[..., None]
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        ...
-    
-    def __str__(self) -> str:
-        ...
-    
-    def dict_contents(self, use_dict: Optional[Dict[str, Any]] = ..., as_class: Union[Callable[[], Dict[str, Any]]] = ...) -> Dict[str, Any]:
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    def __str__(self) -> str: ...
+    def dict_contents(
+        self,
+        use_dict: Optional[Dict[str, Any]] = ...,
+        as_class: Union[Callable[[], Dict[str, Any]]] = ...,
+    ) -> Dict[str, Any]:
         """Return the PCI contents as a dictionary or some other kind of mapping class."""
         ...
-    
-
-

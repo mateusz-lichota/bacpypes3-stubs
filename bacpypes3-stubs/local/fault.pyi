@@ -6,7 +6,11 @@ from typing import Callable, List, Optional, Tuple, Union
 from ..debugging import DebugContents, bacpypes_debugging
 from ..primitivedata import Boolean, CharacterString, Double, Integer, Real, Unsigned
 from ..constructeddata import ListOf
-from ..basetypes import OptionalCharacterString, Reliability, SequenceOfFaultParameterExtendedParameters
+from ..basetypes import (
+    OptionalCharacterString,
+    Reliability,
+    SequenceOfFaultParameterExtendedParameters,
+)
 from ..object import EventEnrollmentObject, Object
 from .object import Algorithm
 
@@ -15,7 +19,7 @@ Fault
 """
 _debug = ...
 _log = ...
-@bacpypes_debugging
+
 class FaultAlgorithm(Algorithm, DebugContents):
     _debug: Callable[..., None]
     _debug_contents: Tuple[str, ...] = ...
@@ -24,19 +28,20 @@ class FaultAlgorithm(Algorithm, DebugContents):
     evaluated_reliability: Optional[Reliability]
     pCurrentReliability: Reliability
     pReliabilityEvaluationInhibit: Boolean
-    def __init__(self, monitoring_object: Optional[EventEnrollmentObject], monitored_object: Object) -> None:
+    def __init__(
+        self,
+        monitoring_object: Optional[EventEnrollmentObject],
+        monitored_object: Object,
+    ) -> None: ...
+    def bind(self, **kwargs):  # -> None:
         ...
-    
-    def bind(self, **kwargs): # -> None:
-        ...
-    
-    def init(self): # -> None:
+    def init(self):  # -> None:
         """
         This is called after the `bind()` call and after all of the parameter
         initialization tasks have completed.
         """
         ...
-    
+
     def execute(self) -> Optional[Reliability]:
         """
         Using the bound parameters, determine if there should be a change in the
@@ -45,10 +50,7 @@ class FaultAlgorithm(Algorithm, DebugContents):
         point.
         """
         ...
-    
 
-
-@bacpypes_debugging
 class NoneFaultAlgorithm(FaultAlgorithm):
     """
     Clause 13.4.1
@@ -56,106 +58,95 @@ class NoneFaultAlgorithm(FaultAlgorithm):
     This is a placeholder for the case where no fault algorithm is applied by
     the object.
     """
-    def __init__(self, monitoring_object: Optional[EventEnrollmentObject], monitored_object: Object) -> None:
-        ...
-    
-    def execute(self) -> Optional[Reliability]:
-        ...
-    
+    def __init__(
+        self,
+        monitoring_object: Optional[EventEnrollmentObject],
+        monitored_object: Object,
+    ) -> None: ...
+    def execute(self) -> Optional[Reliability]: ...
 
-
-@bacpypes_debugging
 class CharacterStringFaultAlgorithm(FaultAlgorithm):
     """
     Clause 13.4.2
     """
+
     _debug: Callable[..., None]
     _debug_contents: Tuple[str, ...] = ...
     pMonitoredValue: CharacterString
     pFaultValues: ListOf(OptionalCharacterString)
-    def __init__(self, monitoring_object: Optional[EventEnrollmentObject], monitored_object: Object) -> None:
-        ...
-    
-    def execute(self) -> Optional[Reliability]:
-        ...
-    
+    def __init__(
+        self,
+        monitoring_object: Optional[EventEnrollmentObject],
+        monitored_object: Object,
+    ) -> None: ...
+    def execute(self) -> Optional[Reliability]: ...
 
-
-@bacpypes_debugging
 class ExtendedFaultAlgorithm(FaultAlgorithm):
     """
     Clause 13.4.3
     """
+
     _debug_contents: Tuple[str, ...] = ...
     pVendorId: Unsigned
     pFaultType: Unsigned
     pParameters: SequenceOfFaultParameterExtendedParameters
-    def __init__(self, monitoring_object: Optional[EventEnrollmentObject], monitored_object: Object) -> None:
-        ...
-    
-    def execute(self) -> Optional[Reliability]:
-        ...
-    
+    def __init__(
+        self,
+        monitoring_object: Optional[EventEnrollmentObject],
+        monitored_object: Object,
+    ) -> None: ...
+    def execute(self) -> Optional[Reliability]: ...
 
-
-@bacpypes_debugging
 class StateFaultAlgorithm(FaultAlgorithm):
     """
     Clause 13.4.5
     """
-    def __init__(self, monitoring_object: Optional[EventEnrollmentObject], monitored_object: Object) -> None:
-        ...
-    
-    def execute(self) -> Optional[Reliability]:
-        ...
-    
+    def __init__(
+        self,
+        monitoring_object: Optional[EventEnrollmentObject],
+        monitored_object: Object,
+    ) -> None: ...
+    def execute(self) -> Optional[Reliability]: ...
 
-
-@bacpypes_debugging
 class StatusFlagsFaultAlgorithm(FaultAlgorithm):
     """
     Clause 13.4.6
     """
-    def __init__(self, monitoring_object: Optional[EventEnrollmentObject], monitored_object: Object) -> None:
-        ...
-    
-    def execute(self) -> Optional[Reliability]:
-        ...
-    
+    def __init__(
+        self,
+        monitoring_object: Optional[EventEnrollmentObject],
+        monitored_object: Object,
+    ) -> None: ...
+    def execute(self) -> Optional[Reliability]: ...
 
-
-@bacpypes_debugging
 class OutOfRangeFaultAlgorithm(FaultAlgorithm, DebugContents):
     """
     Clause 13.4.7
     """
+
     _debug: Callable[..., None]
     _debug_contents: Tuple[str, ...] = ...
     pMinimumNormalValue: Union[Real, Unsigned, Double, Integer]
     pMaximumNormalValue: Union[Real, Unsigned, Double, Integer]
     pMonitoredValue: Union[Real, Unsigned, Double, Integer]
-    def __init__(self, monitoring_object: Optional[EventEnrollmentObject], monitored_object: Object) -> None:
+    def __init__(
+        self,
+        monitoring_object: Optional[EventEnrollmentObject],
+        monitored_object: Object,
+    ) -> None: ...
+    def init(self):  # -> None:
         ...
-    
-    def init(self): # -> None:
-        ...
-    
-    def execute(self) -> Optional[Reliability]:
-        ...
-    
+    def execute(self) -> Optional[Reliability]: ...
 
-
-@bacpypes_debugging
 class FaultListedFaultAlgorithm(FaultAlgorithm):
     """
     Clause 13.4.8
     """
+
     pMonitoredList: List
-    def __init__(self, monitoring_object: Optional[EventEnrollmentObject], monitored_object: Object) -> None:
-        ...
-    
-    def execute(self) -> Optional[Reliability]:
-        ...
-    
-
-
+    def __init__(
+        self,
+        monitoring_object: Optional[EventEnrollmentObject],
+        monitored_object: Object,
+    ) -> None: ...
+    def execute(self) -> Optional[Reliability]: ...

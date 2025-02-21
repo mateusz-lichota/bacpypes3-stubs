@@ -12,25 +12,18 @@ Support for line-oriented command interpreters
 """
 _debug = ...
 _log = ...
-@bacpypes_debugging
+
 class CmdProfile:
     """
     Instances of this class are wrappers around the do_command() methods
     of a Cmd instance.
     """
+
     _debug: Callable[..., None]
-    def __init__(self, cmd_fn: Callable[..., None]) -> None:
-        ...
-    
-    def convert_arg(self, arg: str, raw_arg: str, arg_type: Any) -> Any:
-        ...
-    
-    def __call__(self, args: List[str]) -> Tuple[Any, Any, Any]:
-        ...
-    
+    def __init__(self, cmd_fn: Callable[..., None]) -> None: ...
+    def convert_arg(self, arg: str, raw_arg: str, arg_type: Any) -> Any: ...
+    def __call__(self, args: List[str]) -> Tuple[Any, Any, Any]: ...
 
-
-@bacpypes_debugging
 class Cmd(Server[ConsolePDU]):
     """
     Simple example server that echos the downstream strings as uppercase
@@ -45,28 +38,22 @@ class Cmd(Server[ConsolePDU]):
     of the class itself.
 
     """
+
     _debug: Callable[..., None]
-    def __init__(self, sid: Optional[str] = ...) -> None:
-        ...
-    
-    async def indication(self, pdu: ConsolePDU) -> None:
-        ...
-    
+    def __init__(self, sid: Optional[str] = ...) -> None: ...
+    async def indication(self, pdu: ConsolePDU) -> None: ...
     def do_help(self, cmd: str = ...) -> None:
         """
         usage: help [ cmd ]
         """
         ...
-    
+
     def do_exit(self, status: int = ...) -> Awaitable[None]:
         """
         usage: exit [ status ]
         """
         ...
-    
 
-
-@bacpypes_debugging
 class CmdDebugging:
     _debug: Callable[..., None]
     def do_loggers(self) -> None:
@@ -74,18 +61,15 @@ class CmdDebugging:
         usage: loggers
         """
         ...
-    
+
     def do_bugin(self, *loggers: str, color: Optional[int] = ...) -> None:
         """
         usage: bugin [LOGGER ...] [--color [int]]
         """
         ...
-    
+
     def do_bugout(self, *loggers: str) -> None:
         """
         usage: bugout [LOGGER ...]
         """
         ...
-    
-
-

@@ -15,16 +15,17 @@ Network Port Object
 _debug = ...
 _log = ...
 _vendor_id = ...
-@bacpypes_debugging
+
 class NetworkPortObject(_Object, _NetworkPortObject):
     """
     A local network port object.
     """
+
     _debug: Callable[..., None]
     objectType = ...
-    def __init__(self, addr: Optional[Address, CharacterString] = ..., *args, **kwargs) -> None:
-        ...
-    
+    def __init__(
+        self, addr: Optional[Address, CharacterString] = ..., *args, **kwargs
+    ) -> None: ...
     @property
     def address(self) -> Address:
         """
@@ -32,6 +33,3 @@ class NetworkPortObject(_Object, _NetworkPortObject):
         tuples necessary for sockets.
         """
         ...
-    
-
-

@@ -15,9 +15,8 @@ _log = ...
 ConsolePDU = Union[int, str, None]
 if TYPE_CHECKING:
     ConsoleQueue = asyncio.Queue[ConsolePDU]
-else:
-    ...
-@bacpypes_debugging
+else: ...
+
 class Console(Client[ConsolePDU]):
     """
     A Console object sits at the top of a stack reading input from the
@@ -27,26 +26,30 @@ class Console(Client[ConsolePDU]):
 
     The 'fini' event is set when there is no more input, a.k.a. EOF.
     """
+
     _debug: Callable[..., None]
     fini: asyncio.Event
     exit_status: int
-    def __init__(self, prompt: Optional[str] = ..., history_file: Optional[str] = ..., cid: Optional[str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self,
+        prompt: Optional[str] = ...,
+        history_file: Optional[str] = ...,
+        cid: Optional[str] = ...,
+    ) -> None: ...
     def preloop(self) -> None:
         """Initialization before prompting user for commands."""
         ...
-    
+
     def postloop(self) -> None:
         """Take care of any unfinished business."""
         ...
-    
+
     def kill(self) -> None:
         """
         Send a SystemExit exception to the console input thread.
         """
         ...
-    
+
     def console_input(self, fini: asyncio.Event, prompt: str) -> None:
         """
         This method uses the input() blocking function to read a line of text
@@ -54,7 +57,7 @@ class Console(Client[ConsolePDU]):
         its own thread to keep the main event loop alive.
         """
         ...
-    
+
     async def console_supervisor(self) -> None:
         """
         This supervisory function calls preloop to load up the history, starts
@@ -62,7 +65,7 @@ class Console(Client[ConsolePDU]):
         down the stack, saves the history, and sets the fini event flag.
         """
         ...
-    
+
     async def confirmation(self, pdu: ConsolePDU) -> None:
         """
         Upstream messages are strings to send to stdout, or integer status
@@ -71,6 +74,3 @@ class Console(Client[ConsolePDU]):
         appropriate.
         """
         ...
-    
-
-

@@ -24,7 +24,6 @@ Application Module
 _debug = ...
 _log = ...
 
-@bacpypes_debugging
 class ReadWritePropertyServices:
     _debug: Callable[..., None]
     device_object: Optional[DeviceObject]
@@ -67,7 +66,6 @@ class ReadWritePropertyServices:
         """Change the value of some property of one of our objects."""
         ...
 
-@bacpypes_debugging
 async def read_property_to_any(
     obj: ReadWritePropertyServices,
     propertyIdentifier: PropertyIdentifier,
@@ -77,7 +75,6 @@ async def read_property_to_any(
     and cast the result into an Any object."""
     ...
 
-@bacpypes_debugging
 async def read_property_to_result_element(
     obj: ReadWritePropertyServices,
     propertyIdentifier: PropertyIdentifier,
@@ -86,7 +83,7 @@ async def read_property_to_result_element(
     """Read the specified property of the object, with the optional array index,
     and cast the result into an Any object."""
     ...
-@bacpypes_debugging
+
 class ReadWritePropertyMultipleServices:
     _debug: Callable[..., None]
     device_object: Optional[DeviceObject]
@@ -108,7 +105,6 @@ class ReadWritePropertyMultipleServices:
         """Respond to a WritePropertyMultiple Request."""
         ...
 
-@bacpypes_debugging
 class ReadRangeServices:
     _debug: Callable[..., None]
     device_object: Optional[DeviceObject]

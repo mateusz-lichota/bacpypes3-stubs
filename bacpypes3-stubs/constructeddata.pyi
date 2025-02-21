@@ -29,7 +29,6 @@ _array_of_classes: Set[type] = ...
 _list_type_signatures: Dict[FrozenSet[Tuple[str, _Any]], type] = ...
 _list_of_classes: Set[type] = ...
 
-@bacpypes_debugging
 class SequenceMetaclass(ElementMetaclass):
     """
     Amazing documentation here.
@@ -46,7 +45,6 @@ class SequenceMetaclass(ElementMetaclass):
     ) -> SequenceMetaclass: ...
     def __call__(cls, *args: _Any, **kwargs: _Any) -> Sequence: ...
 
-@bacpypes_debugging
 class Sequence(Element, DebugContents, metaclass=SequenceMetaclass):
     """
     Amazing documentation here.
@@ -83,7 +81,6 @@ class Sequence(Element, DebugContents, metaclass=SequenceMetaclass):
     def __ne__(self, other: _Any) -> bool: ...
     def __hash__(self) -> int: ...
 
-@bacpypes_debugging
 class Choice(Sequence):
     """
     Amazing documentation here.
@@ -104,7 +101,6 @@ class Choice(Sequence):
         """Decode a choice from a tag list."""
         ...
 
-@bacpypes_debugging
 class ExtendedListMetaclass(type):
     """
     Amazing documentation here.
@@ -113,7 +109,6 @@ class ExtendedListMetaclass(type):
     _debug: Callable[..., None]
     def __call__(cls, *args: _Any, **kwargs: _Any) -> _Any: ...
 
-@bacpypes_debugging
 class ExtendedList(list[_Any], ElementInterface, metaclass=ExtendedListMetaclass):
     """
     Amazing documentation here.
@@ -146,7 +141,7 @@ def SequenceOf[T: type](cls: T, **kwargs: _Any) -> T:
     Amazing documentation here.
     """
     ...
-@bacpypes_debugging
+
 class List(ExtendedList):
     """
     Amazing documentation here.
@@ -161,7 +156,7 @@ def ListOf[T: type](cls: T, **kwargs: _Any) -> T:
     some other type.
     """
     ...
-@bacpypes_debugging
+
 class ArrayMetaclass(ExtendedListMetaclass):
     """
     Amazing documentation here.
@@ -170,7 +165,6 @@ class ArrayMetaclass(ExtendedListMetaclass):
     _debug: Callable[..., None]
     def __call__(cls, *args: _Any, **kwargs: _Any) -> _Any: ...
 
-@bacpypes_debugging
 class Array(ExtendedList, metaclass=ArrayMetaclass):
     """
     Amazing documentation here.
@@ -198,13 +192,12 @@ class Array(ExtendedList, metaclass=ArrayMetaclass):
         priority: Optional[int] = ...,
     ) -> None: ...
 
-@bacpypes_debugging
 def ArrayOf[T: type](cls: T, **kwargs: _Any) -> T:
     """
     Amazing documentation here.
     """
     ...
-@bacpypes_debugging
+
 class Any(Element):
     """
     Amazing documentation here.
@@ -257,7 +250,6 @@ class Any(Element):
         self, indent: int = ..., file: TextIO = ..., _ids: Optional[_List[_Any]] = ...
     ) -> None: ...
 
-@bacpypes_debugging
 class AnyAtomic(Any):
     """
     Amazing documentation here.

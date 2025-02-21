@@ -16,6 +16,7 @@ Batch Read
 """
 _debug = ...
 _log = ...
+
 @dataclass(eq=True, order=True, frozen=True)
 class DeviceAddressObjectPropertyReference:
     """
@@ -23,110 +24,104 @@ class DeviceAddressObjectPropertyReference:
     object associated with a "key".  When the results are read, the callback
     function is given the key and the value that was read.
     """
+
     key: Any
     deviceAddress: Address
     objectIdentifier: ObjectIdentifier
     propertyReference: PropertyReference
-    def __init__(self, key: Any, device_address: Any, object_identifier: Any, property_reference: Any) -> None:
-        ...
-    
-    def __repr__(self) -> str:
-        ...
-    
-
+    def __init__(
+        self,
+        key: Any,
+        device_address: Any,
+        object_identifier: Any,
+        property_reference: Any,
+    ) -> None: ...
+    def __repr__(self) -> str: ...
 
 DeviceAddressObjectPropertyReferenceList = List[DeviceAddressObjectPropertyReference]
 AddressGroupDefaultDict = DefaultDict[Address, DeviceAddressObjectPropertyReferenceList]
+
 class AddressGroup(AddressGroupDefaultDict):
     """
     An address bucket is a mapping between an address and all of the references
     that are being requested.
     """
-    def __init__(self, arg: Dict[Address, List[DeviceAddressObjectPropertyReference]] = ..., **kwargs: Any) -> None:
-        ...
-    
-
+    def __init__(
+        self,
+        arg: Dict[Address, List[DeviceAddressObjectPropertyReference]] = ...,
+        **kwargs: Any,
+    ) -> None: ...
 
 NetworkGroupDefaultDict = DefaultDict[Optional[int], AddressGroup]
+
 class NetworkGroup(NetworkGroupDefaultDict):
     """
     A network bucket is a mapping between a BACnet network and an address
     bucket.
     """
-    def __init__(self, arg: Dict[Optional[int], AddressGroup] = ..., **kwargs: Any) -> None:
-        ...
-    
+    def __init__(
+        self, arg: Dict[Optional[int], AddressGroup] = ..., **kwargs: Any
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class AddressGroupWorker:
     """
     A worker is responsible for take the list of requests for a specific
     BACnet address and read them as a group (if Read Property Multiple is
     supported) or individually.
     """
+
     _debug: Callable[..., None]
-    def __init__(self, address: Address, daopr_list: DeviceAddressObjectPropertyReferenceList) -> None:
+    def __init__(
+        self, address: Address, daopr_list: DeviceAddressObjectPropertyReferenceList
+    ) -> None:
         """
         An AddressGroupWorker is associated with an AddressGroup to read
         the references.
         """
         ...
-    
-    async def run(self, batch: BatchRead) -> None:
-        ...
-    
-    async def read_property(self, batch: BatchRead) -> None:
-        ...
-    
-    async def read_property_multiple(self, batch: BatchRead) -> None:
-        ...
-    
 
+    async def run(self, batch: BatchRead) -> None: ...
+    async def read_property(self, batch: BatchRead) -> None: ...
+    async def read_property_multiple(self, batch: BatchRead) -> None: ...
 
-@bacpypes_debugging
 class NetworkGroupWorker:
     """
     A NetworkGroupWorker is responsible for running AddressGroupWorker
     instances sequentially for all of the addresses on its network.
     """
-    _debug: Callable[..., None]
-    def __init__(self, network: Union[int, None], address_group: AddressGroup) -> None:
-        ...
-    
-    async def run(self, batch: BatchRead) -> None:
-        ...
-    
 
+    _debug: Callable[..., None]
+    def __init__(
+        self, network: Union[int, None], address_group: AddressGroup
+    ) -> None: ...
+    async def run(self, batch: BatchRead) -> None: ...
 
 CallbackFn = Callable[[Any, Any], None]
-@bacpypes_debugging
+
 class BatchRead:
     """
     Given a list of references to the properties of objects in some devices,
     read the values of the properties and pass the results to a callback
     function.
     """
+
     _debug: Callable[..., None]
     app: Optional[Application]
     fini: Optional[asyncio.Event]
     callback: Optional[CallbackFn]
-    def __init__(self, daopr_list: DeviceAddressObjectPropertyReferenceList) -> None:
-        ...
-    
+    def __init__(
+        self, daopr_list: DeviceAddressObjectPropertyReferenceList
+    ) -> None: ...
     async def run(self, app: Application, callback: Optional[CallbackFn] = ...) -> None:
         """
         Read the contents of the buckets.
         """
         ...
-    
-    def stop(self): # -> None:
+
+    def stop(self):  # -> None:
         """
         Called when the batch reading process should cancel all of its
         incomplete tasks and skip reading any more, stopping as soon as
         possible.
         """
         ...
-    
-
-

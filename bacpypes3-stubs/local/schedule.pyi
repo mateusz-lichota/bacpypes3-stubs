@@ -12,6 +12,7 @@ from .object import Object as _Object
 
 _debug = ...
 _log = ...
+
 def match_date(date: Date, date_pattern: Date) -> bool:
     """
     Match a specific date, a four-tuple with no special values, with a date
@@ -33,10 +34,7 @@ def match_weeknday(date: Date, weeknday: WeekNDay) -> bool:
     """
     ...
 
-@bacpypes_debugging
-def date_in_calendar_entry(date: Date, calendar_entry: CalendarEntry) -> bool:
-    ...
-
+def date_in_calendar_entry(date: Date, calendar_entry: CalendarEntry) -> bool: ...
 def datetime_to_time(date: Date, time: Time) -> float:
     """
     Take the date and time 4-tuples and return the time in seconds since
@@ -44,12 +42,9 @@ def datetime_to_time(date: Date, time: Time) -> float:
     """
     ...
 
-@bacpypes_debugging
 class ScheduleObject(_Object, _ScheduleObject):
     _interpret_schedule_handle: Optional[asyncio.Handle]
-    def __init__(self, **kwargs) -> None:
-        ...
-    
+    def __init__(self, **kwargs) -> None: ...
     def check_reliability(self, old_value=..., new_value=...):
         """
         This function is called when the object is created and after
@@ -58,26 +53,25 @@ class ScheduleObject(_Object, _ScheduleObject):
         changed and this is only concerned with the current value.
         """
         ...
-    
-    def present_value_changed(self, old_value, new_value): # -> None:
+
+    def present_value_changed(self, old_value, new_value):  # -> None:
         """
         This function is called when the presentValue of the local schedule
         object has changed, both internally by this interpreter, or externally
         by some client using WriteProperty.
         """
         ...
-    
-    def schedule_changed(self, old_value, new_value): # -> None:
+
+    def schedule_changed(self, old_value, new_value):  # -> None:
         """
         This function is called when the weeklySchedule or the exceptionSchedule
         property of the local schedule object has changed, both internally by
         this interpreter, or externally by some client using WriteProperty.
         """
         ...
-    
-    def interpret_schedule(self): # -> None:
+
+    def interpret_schedule(self):  # -> None:
         ...
-    
     def eval(self, edate: Date, etime: Time) -> Optional[Tuple[Any, Any]]:
         """
         Evaluate the schedule according to the provided date and time and
@@ -86,6 +80,3 @@ class ScheduleObject(_Object, _ScheduleObject):
         period.
         """
         ...
-    
-
-

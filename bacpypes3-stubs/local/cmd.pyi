@@ -9,41 +9,36 @@ from bacpypes3.local.object import Object as _Object
 
 _debug = ...
 _log = ...
-@bacpypes_debugging
+
 class PriorityArray(_PriorityArray):
     """
     Capture changes to an item in a priority array and
     request the object owning the array to recalcuate the presentValue.
     """
+
     _debug: Callable[..., None]
     _obj: _Object
-    def __init__(self, *args: _Any, **kwargs: _Any) -> None:
-        ...
-    
+    def __init__(self, *args: _Any, **kwargs: _Any) -> None: ...
     def __setitem__(self, item: Union[int, slice], value: _Any) -> None:
         """
         Override the normal __setitem__() to follow up with recalculating
         the presentValue.
         """
         ...
-    
-    def __repr__(self): # -> str:
+
+    def __repr__(self):  # -> str:
         ...
-    
 
-
-@bacpypes_debugging
 class Commandable:
     """
     This implements a commandable object where the presentValue
     is commandable and governed by the contents of the priorityArray
     and relinquishDefault proprties.
     """
+
     _debug: Callable[..., None]
     priorityArray: PriorityArray
-    def __init__(self, **kwargs) -> None:
-        ...
-    
+    def __init__(self, **kwargs) -> None: ...
     def __setattr__(self, attr: str, value: _Any) -> None:
         """
         Changing the presentValue is actully writing to the priorityArray
@@ -53,20 +48,23 @@ class Commandable:
         RDF graph.
         """
         ...
-    
-    async def write_property(self, attr: Union[int, str], value: _Any, index: Optional[int] = ..., priority: Optional[int] = ...) -> None:
+
+    async def write_property(
+        self,
+        attr: Union[int, str],
+        value: _Any,
+        index: Optional[int] = ...,
+        priority: Optional[int] = ...,
+    ) -> None:
         """
         Writing to the presentValue is redirected to writing to the
         priority array which is otherwise read-only.
         """
         ...
-    
+
     def recalculating(self) -> None:
         """
         Look through the priority array to find the highest priority value
         where the PriorityValue doesn't have 'null' value.
         """
         ...
-    
-
-

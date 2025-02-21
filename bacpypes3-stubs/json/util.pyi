@@ -68,44 +68,36 @@ def objectidentifier_encode(value):  # -> str:
 def objectidentifier_decode(value, class_): ...
 def atomic_encode(value) -> _Any: ...
 def atomic_decode(literal, class_) -> Atomic: ...
-@bacpypes_debugging
 def sequence_to_json(seq: Sequence) -> JSONDict:
     """Encode a sequence as a JSONDict."""
     ...
 
-@bacpypes_debugging
 def json_to_sequence(json: JSONDict, seq_class: type) -> Sequence:
     """Decode a sequence from a graph."""
     ...
 
-@bacpypes_debugging
 def extendedlist_to_json_list(xlist: ExtendedList) -> _List[_Any]:
     """Encode an extended list as an array."""
     ...
 
-@bacpypes_debugging
 def json_list_to_extendedlist(
     json_list: _List[_Any], xlist_class: type
 ) -> ExtendedList:
     """Decode an extended list from a graph."""
     ...
 
-@bacpypes_debugging
 def taglist_to_json_list(tag_list: TagList) -> _List[Dict[str, _Any]]:
     """ """
     ...
 
-@bacpypes_debugging
 def json_list_to_taglist(json_list: _List[Dict[str, _Any]]) -> Any:
     """ """
     ...
 
-@bacpypes_debugging
 def apdu_to_json(apdu: APDU) -> JSONDict:
     """ """
     ...
 
-@bacpypes_debugging
 def json_to_apdu(json_blob: JSONDict) -> APDU:
     """ """
     ...

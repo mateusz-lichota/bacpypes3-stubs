@@ -7,7 +7,13 @@ from typing import Callable, Dict, List, Optional
 from ..debugging import DebugContents, bacpypes_debugging
 from ..comm import ApplicationServiceElement, Client, Server, ServiceAccessPoint
 from ..pdu import IPv4Address, PDU
-from .bvll import FDTEntry, LPDU, ReadBroadcastDistributionTableAck, ReadForeignDeviceTableAck, Result
+from .bvll import (
+    FDTEntry,
+    LPDU,
+    ReadBroadcastDistributionTableAck,
+    ReadForeignDeviceTableAck,
+    Result,
+)
 
 """
 BACnet IPv4 Virtual Link Layer Service
@@ -18,73 +24,49 @@ REGISTRATION_TIMEOUT = ...
 READ_BDT_TIMEOUT = ...
 READ_FDT_TIMEOUT = ...
 WRITE_BDT_TIMEOUT = ...
-class _MultiplexClient(Client[PDU]):
-    def __init__(self, mux) -> None:
-        ...
-    
-    async def confirmation(self, pdu: PDU) -> None:
-        ...
-    
 
+class _MultiplexClient(Client[PDU]):
+    def __init__(self, mux) -> None: ...
+    async def confirmation(self, pdu: PDU) -> None: ...
 
 class _MultiplexServer(Server[PDU]):
-    def __init__(self, mux) -> None:
-        ...
-    
-    async def indication(self, pdu: PDU) -> None:
-        ...
-    
+    def __init__(self, mux) -> None: ...
+    async def indication(self, pdu: PDU) -> None: ...
 
-
-@bacpypes_debugging
 class UDPMultiplexer(Client[PDU]):
     """
     An instance of this class sits above an IPv4DatagramServer and checks the
     upstream packets for Annex H style BACnet Tunneling Router functionality
     or Annex J BACnet/IPv4 functionality.
     """
+
     _debug: Callable[..., None]
     _warning: Callable[..., None]
-    def __init__(self) -> None:
+    def __init__(self) -> None: ...
+    async def indication(self, server, pdu):  # -> None:
         ...
-    
-    async def indication(self, server, pdu): # -> None:
-        ...
-    
-    async def confirmation(self, pdu: PDU) -> None:
-        ...
-    
+    async def confirmation(self, pdu: PDU) -> None: ...
 
-
-@bacpypes_debugging
 class BTR(Client[PDU], Server[PDU], DebugContents):
     """
     BACnet Annex H Tunneling Router
     """
+
     _debug: Callable[..., None]
     _warning: Callable[..., None]
     _debug_contents = ...
     peers: Dict[IPv4Address, List[int]]
-    def __init__(self, *, cid=..., sid=...) -> None:
-        ...
-    
-    async def indication(self, pdu: PDU) -> None:
-        ...
-    
-    async def confirmation(self, pdu: PDU) -> None:
-        ...
-    
+    def __init__(self, *, cid=..., sid=...) -> None: ...
+    async def indication(self, pdu: PDU) -> None: ...
+    async def confirmation(self, pdu: PDU) -> None: ...
     def add_peer(self, peerAddr: IPv4Address, networks: List[int] = ...) -> None:
         """Add a peer and optionally provide a list of the reachable networks."""
         ...
-    
+
     def delete_peer(self, peerAddr: IPv4Address) -> None:
         """Delete a peer."""
         ...
-    
 
-
-@bacpypes_debugging
 class BVLLServiceAccessPoint(Client[LPDU], Server[PDU], ServiceAccessPoint):
     """
     BACnet IPv4 Service Access Point
@@ -92,31 +74,24 @@ class BVLLServiceAccessPoint(Client[LPDU], Server[PDU], ServiceAccessPoint):
     An instance of this is stacked on a BVLLCodec, as a server it presents
     PDUs.
     """
+
     _debug: Callable[..., None]
-    def __init__(self, *, sapID: Optional[str] = ..., cid: Optional[str] = ..., sid: Optional[str] = ...) -> None:
-        ...
-    
-    async def sap_indication(self, lpdu: LPDU) -> None:
-        ...
-    
-    async def sap_confirmation(self, lpdu: LPDU) -> None:
-        ...
-    
+    def __init__(
+        self,
+        *,
+        sapID: Optional[str] = ...,
+        cid: Optional[str] = ...,
+        sid: Optional[str] = ...,
+    ) -> None: ...
+    async def sap_indication(self, lpdu: LPDU) -> None: ...
+    async def sap_confirmation(self, lpdu: LPDU) -> None: ...
 
-
-@bacpypes_debugging
 class BIPNormal(BVLLServiceAccessPoint):
     _debug: Callable[..., None]
     _warning: Callable[..., None]
-    async def indication(self, pdu: PDU) -> None:
-        ...
-    
-    async def confirmation(self, lpdu: LPDU) -> None:
-        ...
-    
+    async def indication(self, pdu: PDU) -> None: ...
+    async def confirmation(self, lpdu: LPDU) -> None: ...
 
-
-@bacpypes_debugging
 class BIPForeign(BVLLServiceAccessPoint, DebugContents):
     _debug: Callable[..., None]
     _warning: Callable[..., None]
@@ -129,15 +104,9 @@ class BIPForeign(BVLLServiceAccessPoint, DebugContents):
     _registration_task: Optional[asyncio.Task]
     _registration_timeout_task: Optional[asyncio.Task]
     _reregistration_timeout_handle: Optional[asyncio.TimerHandle]
-    def __init__(self, **kwargs) -> None:
-        ...
-    
-    async def indication(self, pdu: PDU) -> None:
-        ...
-    
-    async def confirmation(self, lpdu: LPDU) -> None:
-        ...
-    
+    def __init__(self, **kwargs) -> None: ...
+    async def indication(self, pdu: PDU) -> None: ...
+    async def confirmation(self, lpdu: LPDU) -> None: ...
     def register(self, addr: IPv4Address, ttl: int) -> None:
         """Start the foreign device registration process with the given BBMD.
 
@@ -145,18 +114,15 @@ class BIPForeign(BVLLServiceAccessPoint, DebugContents):
         until explicitly stopped by a call to `unregister`.
         """
         ...
-    
-    def unregister(self): # -> None:
+
+    def unregister(self):  # -> None:
         """Stop the foreign device registration process.
 
         Immediately drops active foreign device registration and stops further
         registration renewals.
         """
         ...
-    
 
-
-@bacpypes_debugging
 class BIPBBMD(BVLLServiceAccessPoint, DebugContents):
     _debug: Callable[..., None]
     _warning: Callable[..., None]
@@ -165,34 +131,18 @@ class BIPBBMD(BVLLServiceAccessPoint, DebugContents):
     bbmdBDT: List[IPv4Address]
     bbmdFDT: List[FDTEntry]
     _fdt_clock_handle: asyncio.Handle
-    def __init__(self, addr: IPv4Address, **kwargs) -> None:
-        ...
-    
-    async def indication(self, pdu: PDU) -> None:
-        ...
-    
-    async def confirmation(self, lpdu: LPDU) -> None:
-        ...
-    
+    def __init__(self, addr: IPv4Address, **kwargs) -> None: ...
+    async def indication(self, pdu: PDU) -> None: ...
+    async def confirmation(self, lpdu: LPDU) -> None: ...
     def register_foreign_device(self, addr: IPv4Address, ttl: int) -> int:
         """Add a foreign device to the FDT."""
         ...
-    
-    def delete_foreign_device_table_entry(self, addr: IPv4Address) -> int:
-        ...
-    
-    def fdt_clock(self) -> None:
-        ...
-    
-    def add_peer(self, addr: IPv4Address) -> None:
-        ...
-    
-    def delete_peer(self, addr: IPv4Address) -> None:
-        ...
-    
 
+    def delete_foreign_device_table_entry(self, addr: IPv4Address) -> int: ...
+    def fdt_clock(self) -> None: ...
+    def add_peer(self, addr: IPv4Address) -> None: ...
+    def delete_peer(self, addr: IPv4Address) -> None: ...
 
-@bacpypes_debugging
 class BIPNAT(BVLLServiceAccessPoint, DebugContents):
     _debug: Callable[..., None]
     _warning: Callable[..., None]
@@ -203,73 +153,59 @@ class BIPNAT(BVLLServiceAccessPoint, DebugContents):
     def __init__(self, addr, **kwargs) -> None:
         """A BBMD node that is the destination for NATed traffic."""
         ...
-    
-    async def indication(self, pdu: PDU) -> None:
-        ...
-    
-    async def confirmation(self, lpdu: LPDU) -> None:
-        ...
-    
-    def register_foreign_device(self, addr, ttl): # -> Literal[0]:
+
+    async def indication(self, pdu: PDU) -> None: ...
+    async def confirmation(self, lpdu: LPDU) -> None: ...
+    def register_foreign_device(self, addr, ttl):  # -> Literal[0]:
         """Add a foreign device to the FDT."""
         ...
-    
-    def delete_foreign_device_table_entry(self, addr): # -> Literal[0, 99]:
-        ...
-    
-    def process_task(self): # -> None:
-        ...
-    
-    def add_peer(self, addr): # -> None:
-        ...
-    
-    def delete_peer(self, addr): # -> None:
-        ...
-    
 
+    def delete_foreign_device_table_entry(self, addr):  # -> Literal[0, 99]:
+        ...
+    def process_task(self):  # -> None:
+        ...
+    def add_peer(self, addr):  # -> None:
+        ...
+    def delete_peer(self, addr):  # -> None:
+        ...
 
-@bacpypes_debugging
 class BVLLServiceElement(ApplicationServiceElement):
     _debug: Callable[..., None]
     _warning: Callable[..., None]
-    def __init__(self, *, aseID=...) -> None:
-        ...
-    
-    async def indication(self, lpdu: LPDU) -> None:
-        ...
-    
-    async def confirmation(self, lpdu: LPDU) -> None:
-        ...
-    
-    async def Result(self, pdu: Result) -> None:
-        ...
-    
-    def read_broadcast_distribution_table(self, address: IPv4Address, timeout: float = ...) -> asyncio.Future:
+    def __init__(self, *, aseID=...) -> None: ...
+    async def indication(self, lpdu: LPDU) -> None: ...
+    async def confirmation(self, lpdu: LPDU) -> None: ...
+    async def Result(self, pdu: Result) -> None: ...
+    def read_broadcast_distribution_table(
+        self, address: IPv4Address, timeout: float = ...
+    ) -> asyncio.Future:
         """
         Read the broadcast distribution table from a BBMD, returns a list of
         IPv4Address's (check the mask!) or None if there is no response.
         """
         ...
-    
-    async def ReadBroadcastDistributionTableAck(self, pdu: ReadBroadcastDistributionTableAck) -> None:
-        ...
-    
-    def write_broadcast_distribution_table(self, address: IPv4Address, bdt: List[IPv4Address], timeout: float = ...) -> asyncio.Future:
+
+    async def ReadBroadcastDistributionTableAck(
+        self, pdu: ReadBroadcastDistributionTableAck
+    ) -> None: ...
+    def write_broadcast_distribution_table(
+        self, address: IPv4Address, bdt: List[IPv4Address], timeout: float = ...
+    ) -> asyncio.Future:
         """
         Read the broadcast distribution table from a BBMD, returns a list of
         IPv4Address's (check the mask!) or None if there is no response.
         """
         ...
-    
-    def read_foreign_device_table(self, address: IPv4Address, timeout: float = ...) -> asyncio.Future:
+
+    def read_foreign_device_table(
+        self, address: IPv4Address, timeout: float = ...
+    ) -> asyncio.Future:
         """
         Read the foreign device table from a BBMD, returns a list of FDTEntry's
         or None if there is no response.
         """
         ...
-    
-    async def ReadForeignDeviceTableAck(self, pdu: ReadForeignDeviceTableAck) -> None:
-        ...
-    
 
-
+    async def ReadForeignDeviceTableAck(
+        self, pdu: ReadForeignDeviceTableAck
+    ) -> None: ...

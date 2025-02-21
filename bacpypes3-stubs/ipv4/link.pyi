@@ -21,57 +21,45 @@ instance which references a NetworkServiceAccessPoint.
 """
 _debug = ...
 _log = ...
-@bacpypes_debugging
+
 class NormalLinkLayer(BIPNormal):
     """
     Create a link layer mini-stack starting with the "normal"
     BVLLServiceAccessPoint (parent class of BIPNormal) down to the datagram
     server.
     """
+
     codec: BVLLCodec
     multiplexer: UDPMultiplexer
     server: IPv4DatagramServer
-    def __init__(self, local_address: IPv4Address, **kwargs) -> None:
+    def __init__(self, local_address: IPv4Address, **kwargs) -> None: ...
+    def close(self):  # -> None:
         ...
-    
-    def close(self): # -> None:
-        ...
-    
 
-
-@bacpypes_debugging
 class ForeignLinkLayer(BIPForeign):
     """
     Create a link layer mini-stack starting with the "foreign"
     BVLLServiceAccessPoint (parent class of BIPForeign) down to the datagram
     server.
     """
+
     codec: BVLLCodec
     multiplexer: UDPMultiplexer
     server: IPv4DatagramServer
-    def __init__(self, local_address: IPv4Address, **kwargs) -> None:
+    def __init__(self, local_address: IPv4Address, **kwargs) -> None: ...
+    def close(self):  # -> None:
         ...
-    
-    def close(self): # -> None:
-        ...
-    
 
-
-@bacpypes_debugging
 class BBMDLinkLayer(BIPBBMD):
     """
     Create a link layer mini-stack starting with the BBMD
     BVLLServiceAccessPoint (parent class of BIPBBMD) down to the datagram
     server.
     """
+
     codec: BVLLCodec
     multiplexer: UDPMultiplexer
     server: IPv4DatagramServer
-    def __init__(self, local_address: IPv4Address, **kwargs) -> None:
+    def __init__(self, local_address: IPv4Address, **kwargs) -> None: ...
+    def close(self):  # -> None:
         ...
-    
-    def close(self): # -> None:
-        ...
-    
-
-

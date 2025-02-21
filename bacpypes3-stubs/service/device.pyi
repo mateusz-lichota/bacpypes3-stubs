@@ -24,7 +24,6 @@ _log = ...
 WHO_IS_TIMEOUT = ...
 WHO_HAS_TIMEOUT = ...
 
-@bacpypes_debugging
 class WhoIsFuture:
     _debug: Callable[..., None]
     low_limit: Optional[int]
@@ -57,7 +56,6 @@ class WhoIsFuture:
         future."""
         ...
 
-@bacpypes_debugging
 class WhoIsIAmServices:
     _who_is_futures: List[WhoIsFuture]
     def who_is(
@@ -76,7 +74,6 @@ class WhoIsIAmServices:
         """Respond to an I-Am request."""
         ...
 
-@bacpypes_debugging
 class WhoHasFuture:
     _debug: Callable[..., None]
     app: WhoHasIHaveServices
@@ -113,7 +110,6 @@ class WhoHasFuture:
         future."""
         ...
 
-@bacpypes_debugging
 class WhoHasIHaveServices:
     _debug: Callable[..., None]
     _who_has_futures: List[WhoHasFuture]
@@ -140,7 +136,6 @@ class WhoHasIHaveServices:
         """Respond to a I-Have request."""
         ...
 
-@bacpypes_debugging
 class DeviceCommunicationControlServices:
     _dcc_enable_handle: Optional[asyncio.TimerHandle] = ...
     async def do_DeviceCommunicationControlRequest(

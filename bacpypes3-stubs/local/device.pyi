@@ -17,12 +17,13 @@ _log = ...
 _vendor_id = ...
 ArrayOfObjectIdentifier = ...
 ListOfAddressBinding = ...
-@bacpypes_debugging
+
 class DeviceObject(Object, _DeviceObject):
     """
     A local device object has a dynamically generated localDate, localTime, and
     objectList property.
     """
+
     _debug: Callable[..., None]
     objectType = ...
     systemStatus = ...
@@ -44,22 +45,22 @@ class DeviceObject(Object, _DeviceObject):
     def localDate(self) -> Date:
         """Return the local date."""
         ...
-    
+
     @localDate.setter
     def localDate(self, value: Any) -> None:
         """Change the local date, ignored."""
         ...
-    
+
     @property
     def localTime(self) -> Time:
         """Return the local time."""
         ...
-    
+
     @localTime.setter
     def localTime(self, value: Any) -> None:
         """Change the local time, ignored."""
         ...
-    
+
     @property
     def objectList(self) -> ArrayOfObjectIdentifier:
         """
@@ -67,51 +68,48 @@ class DeviceObject(Object, _DeviceObject):
         this object isn't bound to an application, return a list of just itself.
         """
         ...
-    
+
     @objectList.setter
     def objectList(self, value: Any) -> None:
         """Change the list of objects in the application, ignored."""
         ...
-    
+
     @property
     def protocolServicesSupported(self) -> ServicesSupported:
         """Return the protocol services supported."""
         ...
-    
+
     @protocolServicesSupported.setter
     def protocolServicesSupported(self, value: Any) -> None:
         """Change the protocol services supported, ignored."""
         ...
-    
+
     @property
     def protocolObjectTypesSupported(self) -> ObjectTypesSupported:
         """Return the protocol object types supported."""
         ...
-    
+
     @protocolObjectTypesSupported.setter
     def protocolObjectTypesSupported(self, value: Any) -> None:
         """Change the protocol object types supported, ignored."""
         ...
-    
+
     @property
     def deviceAddressBinding(self) -> ListOfAddressBinding:
         """Return the device address binding list."""
         ...
-    
+
     @deviceAddressBinding.setter
     def deviceAddressBinding(self, value: Any) -> None:
         """Change the device address binding list, ignored."""
         ...
-    
+
     @property
     def activeCovSubscriptions(self) -> ListOfCOVSubscription:
         """Return the list of active subscriptions."""
         ...
-    
+
     @activeCovSubscriptions.setter
     def activeCovSubscriptions(self, value: Any) -> None:
         """Change the active subscriptions."""
         ...
-    
-
-

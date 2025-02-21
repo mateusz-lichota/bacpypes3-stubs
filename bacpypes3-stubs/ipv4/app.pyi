@@ -7,67 +7,88 @@ from ..debugging import bacpypes_debugging
 from ..pdu import Address, IPv4Address
 from ..app import Application, DeviceInfoCache
 from ..service.device import WhoHasIHaveServices, WhoIsIAmServices
-from ..service.object import ReadWritePropertyMultipleServices, ReadWritePropertyServices
+from ..service.object import (
+    ReadWritePropertyMultipleServices,
+    ReadWritePropertyServices,
+)
 
 """
 Application Module
 """
 _debug = ...
 _log = ...
-@bacpypes_debugging
-class NormalApplication(Application, WhoIsIAmServices, WhoHasIHaveServices, ReadWritePropertyServices, ReadWritePropertyMultipleServices):
+
+class NormalApplication(
+    Application,
+    WhoIsIAmServices,
+    WhoHasIHaveServices,
+    ReadWritePropertyServices,
+    ReadWritePropertyMultipleServices,
+):
     """
     Normal Application IPv4 Stack
     """
-    def __init__(self, device_object, local_address: Address, device_info_cache: Optional[DeviceInfoCache] = ...) -> None:
+    def __init__(
+        self,
+        device_object,
+        local_address: Address,
+        device_info_cache: Optional[DeviceInfoCache] = ...,
+    ) -> None: ...
+    def close(self):  # -> None:
         ...
-    
-    def close(self): # -> None:
-        ...
-    
 
-
-@bacpypes_debugging
-class ForeignApplication(Application, WhoIsIAmServices, WhoHasIHaveServices, ReadWritePropertyServices, ReadWritePropertyMultipleServices):
-    def __init__(self, device_object, local_address: Address, device_info_cache: Optional[DeviceInfoCache] = ...) -> None:
-        ...
-    
+class ForeignApplication(
+    Application,
+    WhoIsIAmServices,
+    WhoHasIHaveServices,
+    ReadWritePropertyServices,
+    ReadWritePropertyMultipleServices,
+):
+    def __init__(
+        self,
+        device_object,
+        local_address: Address,
+        device_info_cache: Optional[DeviceInfoCache] = ...,
+    ) -> None: ...
     def register(self, addr: IPv4Address, ttl: int) -> None:
         """Facade for foreign device API."""
         ...
-    
-    def unregister(self): # -> None:
+
+    def unregister(self):  # -> None:
         """Facade for foreign device API."""
         ...
-    
-    def close(self): # -> None:
-        ...
-    
 
-
-@bacpypes_debugging
-class BBMDApplication(Application, WhoIsIAmServices, WhoHasIHaveServices, ReadWritePropertyServices, ReadWritePropertyMultipleServices):
-    def __init__(self, device_object, local_address: Address, device_info_cache: Optional[DeviceInfoCache] = ...) -> None:
+    def close(self):  # -> None:
         ...
-    
+
+class BBMDApplication(
+    Application,
+    WhoIsIAmServices,
+    WhoHasIHaveServices,
+    ReadWritePropertyServices,
+    ReadWritePropertyMultipleServices,
+):
+    def __init__(
+        self,
+        device_object,
+        local_address: Address,
+        device_info_cache: Optional[DeviceInfoCache] = ...,
+    ) -> None: ...
     def register_foreign_device(self, addr: IPv4Address, ttl: int) -> int:
         """Facade for BBMD API."""
         ...
-    
+
     def delete_foreign_device_table_entry(self, addr: IPv4Address) -> int:
         """Facade for BBMD API."""
         ...
-    
+
     def add_peer(self, addr: IPv4Address) -> None:
         """Facade for BBMD API."""
         ...
-    
+
     def delete_peer(self, addr: IPv4Address) -> None:
         """Facade for BBMD API."""
         ...
-    
-    def close(self): # -> None:
+
+    def close(self):  # -> None:
         ...
-    
-
-

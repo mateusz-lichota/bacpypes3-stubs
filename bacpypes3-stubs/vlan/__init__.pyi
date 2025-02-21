@@ -14,7 +14,7 @@ Virtual Local Area Network
 AddrType = TypeVar("AddrType")
 _debug = ...
 _log = ...
-@bacpypes_debugging
+
 class Network(Generic[AddrType]):
     _debug: Callable[..., None]
     name: str
@@ -22,30 +22,30 @@ class Network(Generic[AddrType]):
     broadcast_address: Optional[AddrType]
     drop_percent: float
     traffic_log: Optional[Callable[[str, Any], None]]
-    def __init__(self, name: str = ..., broadcast_address: Optional[AddrType] = ..., drop_percent: float = ...) -> None:
-        ...
-    
+    def __init__(
+        self,
+        name: str = ...,
+        broadcast_address: Optional[AddrType] = ...,
+        drop_percent: float = ...,
+    ) -> None: ...
     def add_node(self, node: Node[AddrType]) -> None:
         """Add a node to this network, let the node know which network it's on."""
         ...
-    
+
     def remove_node(self, node: Node[AddrType]) -> None:
         """Remove a node from this network."""
         ...
-    
+
     async def process_pdu(self, pdu: PDU) -> None:
         """Process a PDU by sending a copy to each node as dictated by the
         addressing and if a node is promiscuous.
         """
         ...
-    
+
     def __len__(self) -> int:
         """Simple way to determine the number of nodes in the network."""
         ...
-    
 
-
-@bacpypes_debugging
 class Node(Generic[AddrType], Server[PDU]):
     _debug: Callable[..., None]
     address: AddrType
@@ -53,109 +53,86 @@ class Node(Generic[AddrType], Server[PDU]):
     name: str
     promiscuous: bool
     spoofing: bool
-    def __init__(self, addr: AddrType, lan: Optional[Network[AddrType]] = ..., name: str = ..., promiscuous: bool = ..., spoofing: bool = ..., sid: Optional[str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self,
+        addr: AddrType,
+        lan: Optional[Network[AddrType]] = ...,
+        name: str = ...,
+        promiscuous: bool = ...,
+        spoofing: bool = ...,
+        sid: Optional[str] = ...,
+    ) -> None: ...
     def bind(self, lan: Network[AddrType]) -> None:
         """Bind to a LAN."""
         ...
-    
+
     async def indication(self, pdu: PDU) -> None:
         """Send a message."""
         ...
-    
-    def __repr__(self) -> str:
-        ...
-    
 
+    def __repr__(self) -> str: ...
 
-@bacpypes_debugging
 class IPv4Network(Network[IPv4Address]):
     """
     IPNetwork instances are Network objects where the addresses on the
     network are instances of an IPv4Address.
     """
+
     _debug: Callable[..., None]
     network: ipaddress.IPv4Network
-    def __init__(self, network: ipaddress.IPv4Network, name: str = ...) -> None:
-        ...
-    
-    def add_node(self, node: Node[IPv4Address]) -> None:
-        ...
-    
-    def __getitem__(self, addr: int) -> IPv4Address:
-        ...
-    
+    def __init__(self, network: ipaddress.IPv4Network, name: str = ...) -> None: ...
+    def add_node(self, node: Node[IPv4Address]) -> None: ...
+    def __getitem__(self, addr: int) -> IPv4Address: ...
 
-
-@bacpypes_debugging
 class IPv4Node(Node[IPv4Address]):
     """
     An IPNode is a Node where the address is an Address that has an address
     tuple and a broadcast tuple that would be used for socket communications.
     """
+
     _debug: Callable[..., None]
-    def __init__(self, addr: IPv4Address, lan: Optional[IPv4Network] = ..., promiscuous: bool = ..., spoofing: bool = ..., sid: Optional[str] = ...) -> None:
-        ...
-    
+    def __init__(
+        self,
+        addr: IPv4Address,
+        lan: Optional[IPv4Network] = ...,
+        promiscuous: bool = ...,
+        spoofing: bool = ...,
+        sid: Optional[str] = ...,
+    ) -> None: ...
 
-
-@bacpypes_debugging
 class IPv4RouterNode(Client[PDU]):
     _debug: Callable[..., None]
     node: IPv4Node
     router: IPv4Router
     lan: IPv4Network
-    def __init__(self, router: IPv4Router, addr: IPv4Address, lan: IPv4Network) -> None:
-        ...
-    
-    async def confirmation(self, pdu: PDU) -> None:
-        ...
-    
-    async def process_pdu(self, pdu: PDU) -> None:
-        ...
-    
-    def __repr__(self) -> str:
-        ...
-    
+    def __init__(
+        self, router: IPv4Router, addr: IPv4Address, lan: IPv4Network
+    ) -> None: ...
+    async def confirmation(self, pdu: PDU) -> None: ...
+    async def process_pdu(self, pdu: PDU) -> None: ...
+    def __repr__(self) -> str: ...
 
-
-@bacpypes_debugging
 class IPv4Router:
     _debug: Callable[..., None]
     nodes: List[IPv4RouterNode]
-    def __init__(self) -> None:
-        ...
-    
-    def add_network(self, addr: IPv4Address, lan: IPv4Network) -> None:
-        ...
-    
-    async def process_pdu(self, node: IPv4RouterNode, pdu: PDU) -> None:
-        ...
-    
+    def __init__(self) -> None: ...
+    def add_network(self, addr: IPv4Address, lan: IPv4Network) -> None: ...
+    async def process_pdu(self, node: IPv4RouterNode, pdu: PDU) -> None: ...
 
-
-@bacpypes_debugging
 class VirtualNetwork(Network[LocalStation]):
     """
     VirtualNetwork instances are Network objects where the addresses on the
     network are instances of a generic local station.
     """
+
     _debug: Callable[..., None]
     _networks: Dict[str, VirtualNetwork] = ...
-    def __init__(self, network_name: str) -> None:
-        ...
-    
+    def __init__(self, network_name: str) -> None: ...
 
-
-@bacpypes_debugging
 class VirtualNode(Node[LocalStation]):
     """
     An VirtualNode is a Node where the address is a generic local station.
     """
+
     _debug: Callable[..., None]
-    def __init__(self, addr: LocalStation, network_name: str) -> None:
-        ...
-    
-
-
+    def __init__(self, addr: LocalStation, network_name: str) -> None: ...
