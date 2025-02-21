@@ -7,6 +7,7 @@ from ..debugging import bacpypes_debugging
 from ..primitivedata import Atomic, TagList
 from ..constructeddata import Any, ExtendedList, Sequence
 from ..apdu import APDU
+from _typeshed import ReadableBuffer
 
 """
 Utility functions
@@ -38,7 +39,7 @@ def real_decode(value, class_): ...
 def double_encode(value):  # -> float:
     ...
 def double_decode(value, class_): ...
-def octetstring_encode(value) -> str: ...
+def octetstring_encode(value: ReadableBuffer) -> str: ...
 def octetstring_decode(value, class_):
     """
     This decoding function first attempts to decode the string content
