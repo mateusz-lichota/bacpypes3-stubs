@@ -126,10 +126,7 @@ class Application(
     _requests: Dict[Address, List[Tuple[APDU, APDUFuture]]]
     def __init__(
         self,
-        device_object: DeviceObject,
         device_info_cache: Optional[DeviceInfoCache] = ...,
-        *args,
-        **kwargs,
     ) -> None: ...
     @classmethod
     def from_object_list(
