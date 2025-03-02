@@ -11,7 +11,6 @@ from ..apdu import (
 )
 from ..basetypes import ReadAccessResultElement
 from ..constructeddata import Any
-from ..debugging import bacpypes_debugging
 from ..object import DeviceObject
 from ..pdu import Address
 from ..primitivedata import ObjectIdentifier, PropertyIdentifier
@@ -91,7 +90,7 @@ class ReadWritePropertyMultipleServices:
 
     async def read_property_multiple(
         self,
-        address: Address,
+        address: Address | str,
         parameter_list: list[_Any],
         vendor_info: VendorInfo | None = ...,
     ) -> list[tuple[ObjectIdentifier, PropertyIdentifier, Union[int, None], _Any]]: ...
